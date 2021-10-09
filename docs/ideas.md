@@ -5,7 +5,7 @@
 - **Application name**: *invenire* - a cross platform discovery app.
 
 ### Team Overview
-*Team-alpha* members: Long Le (lnle@umass.edu), Aarat Satyavolu (asatyavolu@umass.edu), Liam Brandwein (lbrandwein@umass.edu).
+*Team-alpha* members: Long Le (https://github.com/vlongle), Aarat Satyavolu (https://github.com/aaratsatyavolu), Liam Brandwein (https://github.com/liambrandwein).
 
 ### Innovative Ideas
 
