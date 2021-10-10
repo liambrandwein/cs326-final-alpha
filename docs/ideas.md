@@ -2,7 +2,7 @@
 ## Milestone 0: Project Ideas
 
 - **Team name**: alpha
-- **Application name**: *invenire* - a cross platform discovery app.
+- **Application name**: *WatchAll* - a cross platform discovery app.
 
 ### Team Overview
 *Team-alpha* members: Long Le (https://github.com/vlongle), Aarat Satyavolu (https://github.com/aaratsatyavolu), Liam Brandwein (https://github.com/liambrandwein).
@@ -21,7 +21,7 @@ Our app allows users to add their streamers on different platforms to their watc
 
 __Related apps__
 
-As far as we are aware, there only has been one company [Notify.me](https://www.tubefilter.com/2021/04/28/jamie-pine-launches-notify-subscriptions-across-platforms/) that offers a somewhat similar functionality. Their app allows users to subscribe to different creators and allow creators to push notifications, saying "creators need a future-proof way to build a subscriber base, one free of algorithms and not confined to a single platform". As such, this application seems to be more creator-based while our idea is to build a user-facing app, allowing users to browse multiple platforms at once. hey're creator-facing while we're user-facing. Notify.me has seen pivoted to a social payments platform. 
+As far as we are aware, there only has been one company [Notify.me](https://www.tubefilter.com/2021/04/28/jamie-pine-launches-notify-subscriptions-across-platforms/) that offers somewhat similar functionality. Their app allows users to subscribe to different creators and allow creators to push notifications, saying "creators need a future-proof way to build a subscriber base, one free of algorithms and not confined to a single platform". As such, this application seems to be more creator-based while our idea is to build a user-facing app, allowing users to browse multiple platforms at once. They're creator-facing while we're user-facing. Notify.me has seemed to have pivoted to a social payments platform. 
 
 ### Important components
 
