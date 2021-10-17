@@ -33,7 +33,7 @@ On our app, a new user will
 1. Add platforms of interests (e.g. Twitch, Youtube)
 2. Add their favorite creators from those platforms to their watchlist.
 
-Alternatively, the user can also add a creator and the different channels on different platforms associated with this creator. Given the user's profile, we can now display a content feed showing which creator is streaming. As such, there are several engineering components to our problem.
+Alternatively, the user can also add a creator and the different channels on different platforms associated with this creator. Given the user's profile, we can now display a content feed showing which creator is streaming. As such, there are several engineering components to our project.
 
 * __Database__: Each user watchlist (profile) consists of a list of tuples (creator, platform, channel url). For example,
 
