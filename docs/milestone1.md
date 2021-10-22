@@ -24,7 +24,7 @@ The Search Results page displays the results for a given keyword (e.g. a content
 
 ### Subscription Manager Page
 
-![subscription_manager](/docs/images/subscriptionPage.png)
+![subscription_manager](/docs/images/subManager.png)
 
 ## Division of labor
 
