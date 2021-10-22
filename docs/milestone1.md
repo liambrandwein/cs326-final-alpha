@@ -8,14 +8,19 @@
 ### Sign In/Sign Up Pages
 ![Sign In, Sign Up](/docs/images/SignInSignUpLayout.png "Basic sign in/sign up page")
 
-### Search History Page
+### Watch History Page
+
+The Watch History page allows the user to track their own history of watched streams or videos across different platforms. The user can search their history, clear history or filter history by platform.
+
 
 ![search_hist_html](/docs/images/hist_html.png)
 
 
 ### Search Results Page
 
-![search_results](/docs/images/searchResultPage.png)
+The Search Results page displays the results for a given keyword (e.g. a content of interests "Chess" or a creator "GMNarodistky"), and allows user to navigate quickly to a live stream or a newly uploaded video. The page also allows the user to subscribe or unsubscribe to creators. 
+
+![search_results](/docs/images/search_res.png)
 
 ### Subscription Manager Page
 
