@@ -9,7 +9,14 @@
 ![Sign In, Sign Up](/docs/images/SignInSignUpLayout.png "Basic sign in/sign up page")
 
 ### Search History Page
+
+**Wire-frame**
+
 ![search_hist](/docs/images/historyPage.png)
+
+**HTML**
+![search_hist_html](/docs/images/hist_html.png)
+
 
 ### Search Results Page
 
