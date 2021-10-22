@@ -10,11 +10,6 @@
 
 ### Search History Page
 
-**Wire-frame**
-
-![search_hist](/docs/images/historyPage.png)
-
-**HTML**
 ![search_hist_html](/docs/images/hist_html.png)
 
 
