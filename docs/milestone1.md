@@ -24,6 +24,9 @@ The Search Results page displays the results for a given keyword (e.g. a content
 
 ### Subscription Manager Page
 
+The Subscription Manager page allows the user to unsubscribe to their content creators.
+
+
 ![subscription_manager](/docs/images/subManager.png)
 
 ## Division of labor
