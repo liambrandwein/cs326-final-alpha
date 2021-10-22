@@ -21,6 +21,6 @@
 
 ## Division of labor
 
-- **Aarat**: home page
-- **Liam**: signup page
+- **Aarat**: home page (hardest page to do)
+- **Liam**: signup page, signin page
 - **Long**: search history, search results, and subscription manager page
