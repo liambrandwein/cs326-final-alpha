@@ -59,4 +59,4 @@ Note that the final subscription manager HTML is a bit different from the origin
 
 - **Aarat**: home page (hardest page to do)
 - **Liam**: signup page, signin page
-- **Long**: search history, search results, and subscription manager page
+- **Long**: watch history, search results, and subscription manager page
