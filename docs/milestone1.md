@@ -50,6 +50,9 @@ The Subscription Manager page allows the user to unsubscribe to their content cr
 
 ### Subscription Manager Page
 
+Note that the final subscription manager HTML is a bit different from the original design wireframe as we find the latter design to be more elegant and user-friendly.
+
+
 ![subscription_manager](/docs/images/subManager.png)
 
 ## Division of labor
