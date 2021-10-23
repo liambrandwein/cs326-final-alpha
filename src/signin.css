@@ -1,0 +1,119 @@
+/* position: relative;
+width: 1440px;
+height: 900px;
+
+background: #FFFFFF; */
+/* .text-box {
+    position: absolute;
+    background: #C4C4C4;
+    width: 512px;
+    height: 48px;
+}
+.label-text {
+    position: absolute;
+    width: 231px;
+    height: 27px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: #000000;
+}
+#sign-in {
+    position: absolute;
+    width: 258px;
+    height: 41px;
+    left: 815px;
+    top: 70px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    
+    color: #000000;
+}
+
+#email {
+    left: 64px;
+    top: 242px;
+}
+#password {
+    left: 64px;
+    top: 402px;
+}
+#confirm {
+    left: 64px;
+    top: 561px;
+}
+#create {
+    position: absolute;
+    width: 188px;
+    height: 52px;
+    left: 64px;
+    top: 679px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+#email-label {
+    left: 68px;
+    top: 215px;
+}
+#password-label {
+    left: 64px;
+    top: 375px;
+}
+#dont-have {
+    position: absolute;
+    width: 211px;
+    height: 22px;
+    left: 365px;
+    top: 667px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    
+    color: #000000;
+}
+#sign-up {
+    position: absolute;
+    width: 186px;
+    height: 46px;
+    left: 1102px;
+    top: 579px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    
+    color: #1236B6; 
+}
+*/
+#sign-in-text {
+    padding-top: 100px;
+}
+#email-password {
+    padding-top: 100px;
+    width: 50%;
+}
+#sign-in {
+    width: 200px;
+    height: 100px;
+}
+
+.field {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.end-content {
+    padding-top: 60px;
+}
