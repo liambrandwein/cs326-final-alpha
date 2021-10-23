@@ -51,7 +51,7 @@ All codes are in src/ folder.
 
 ### Watch History Page
 
-![search_hist_html](/docs/images/hist_html.png)
+![search_hist_html](images/hist_html.png)
 
 
 ### Search Results Page
