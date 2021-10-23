@@ -40,7 +40,7 @@ The Subscription Manager page allows the user to unsubscribe to their content cr
 The Home page has is the place to discover new live streams and view your recommended streams
 
 
-![home page](/docs/images/homepagemockuo.png)
+![home page](/docs/images/cs326homepage.png)
 
 
 ## Polished HTMLs
