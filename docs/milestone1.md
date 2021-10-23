@@ -3,6 +3,8 @@
 
 ## Data interactions
 
+To support the watch history page, we store a list of streams and videos that the user had watched (watch history). We will also store the content creators that the users had subscribed to, and the user search history. These data would be useful for the user to customize their feed (e.g. by unsubscribing to users), or for us to automatically curate the content (e.g. use a recommendation system trained on watch and search history). The data would probably be stored in some SQL database but that is left to be determined.
+
 ## Wireframes
 
 ### Sign In/Sign Up Pages
@@ -36,6 +38,8 @@ The Subscription Manager page allows the user to unsubscribe to their content cr
 
 
 ## Polished HTMLs
+
+All codes are in src/ folder.
 
 ### Sign In Page
 
