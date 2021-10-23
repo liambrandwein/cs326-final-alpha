@@ -7,6 +7,8 @@
 
 ### Sign In/Sign Up Pages
 
+The Sign In and Sign Up pages will work how you expect them to. For the Sign Up page, users will need to provide an email that is not already registered, a password (that will meet certain requirements), and the same passowrd in the confirm field (otherwise they won't be able to click the "Create" button). The "Sign In" blue text will redirect the user to the Sign In page where they can provide their email and password to log in. The "Create Account" blue text will redirect the user to the Sign Up page.
+
 ![Sign In, Sign Up](/docs/images/SignInSignUpLayout.png "Basic sign in/sign up page")
 
 ### Watch History Page
@@ -35,9 +37,13 @@ The Subscription Manager page allows the user to unsubscribe to their content cr
 
 ## Polished HTMLs
 
-### Sign In/Sign Up Pages
+### Sign In Page
 
-![Sign In, Sign Up](/docs/images/SignInSignUpLayout.png "Basic sign in/sign up page")
+![Sign In](/docs/images/SignInPage.png "Sign In Page")
+
+### Sign Up Page
+
+![Sign Up](/docs/images/SignUpPage.png "Sign Up Page")
 
 ### Watch History Page
 
