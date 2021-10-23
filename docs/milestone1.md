@@ -72,6 +72,13 @@ Note that the final subscription manager HTML is a bit different from the origin
 ![subscription_manager](/docs/images/subManager.png)
 
 
+### Home Page
+
+The Home page has is the place to discover new live streams and view your recommended streams
+
+
+![home page](/docs/images/homepagemockuo.png)
+
 
 ## Division of labor
 
