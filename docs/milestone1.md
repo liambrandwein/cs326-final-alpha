@@ -74,7 +74,7 @@ Note that the final subscription manager HTML is a bit different from the origin
 
 ### Home Page
 
-The Home page has is the place to discover new live streams and view your recommended streams
+For further polish, aiming to have a dynamic carousel implementation, but initially built this card structure to show what it should feel like for the user
 
 
 ![home page](/docs/images/homepagemockuo.png)
