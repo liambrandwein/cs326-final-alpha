@@ -83,7 +83,8 @@ function removeUserSub(req, res){
     const user_sub_data = getDataBase('user_sub_data');
     const body = req.body;
     if (body.id in user_sub_data){
-        user_sub_data[id].delete(body.sub_id);
+        const index = user_sub_data[body.id].indexOf(body.creator_id);
+        user_sub_data[body.id].splice(index, 1);
         res.send({
             status: 'success',
             msg: 'delete sub success'
@@ -102,10 +103,10 @@ function updateWatchHist(req, res){
     const user_watch_hist_data = getDataBase('user_watch_hist_data');
     const body = req.body;
     if (body.id in user_watch_hist_data){
-        user_watch_hist_data[id].push(body.creator_id);
+        user_watch_hist_data[body.id].push(body.creator_id);
     }
     else{
-        user_watch_hist_data[id] = [body.creator_id];
+        user_watch_hist_data[body.id] = Array(body.creator_id);
     }
     fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
     res.send({

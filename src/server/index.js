@@ -48,11 +48,6 @@ app.post('/createaccount', handle.createAccount);
 
 app.post('/addusersub', handle.addUserSub);
 
-app.delete('/removecreator', (req, res) => {
-    /*
-    use req.params to find the person to delete, should have name as param to lookup from table
-    */
-   res.status(200).send({
-        result: 'Deleted.'
-   });
-});
+app.delete('/removeusersub', handle.removeUserSub);
+
+app.patch('/updatewatchhist', handle.updateWatchHist);
