@@ -51,3 +51,11 @@ app.post('/addusersub', handle.addUserSub);
 app.delete('/removeusersub', handle.removeUserSub);
 
 app.patch('/updatewatchhist', handle.updateWatchHist);
+
+app.delete('/clearwatchhist', handle.clearWatchHist);
+
+app.post('/addcreator', handle.addCreator);
+
+// API GETTERS
+
+

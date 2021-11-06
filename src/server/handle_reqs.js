@@ -119,7 +119,7 @@ function clearWatchHist(req, res){
     const user_watch_hist_data = getDataBase('user_watch_hist_data');
     const body = req.body;
     if (body.id in user_watch_hist_data){
-        user_watch_hist_data[id] = [];
+        user_watch_hist_data[body.id] = [];
     }
     fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
     res.send({
@@ -132,10 +132,10 @@ function addCreator(req, res){
     const creator_data = getDataBase('creator_data');
     const body = req.body;
     if (body.creator_id in creator_data){
-        creator_data[body.creator_id].add({'platform': body.platform, 'url': body.url});
+        creator_data[body.creator_id].push({'platform': body.platform, 'url': body.url});
     }
     else{
-        creator_data[body.creator_id] = new Set([{'platform': body.platform, 'url': body.url}]);
+        creator_data[body.creator_id] = Array({'platform': body.platform, 'url': body.url});
     }
     fs.writeFileSync('src/server/data/creator_data.json', JSON.stringify(creator_data));
     res.send({
