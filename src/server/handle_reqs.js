@@ -19,7 +19,7 @@ function loginAccount(req, res){
     const user_data = getDataBase('user_data');
     const body = req.body;
     if (body.id  in user_data || user_data[body.id] === body.pass){
-        res.send({
+        res.status(200).send({
             status: 'success',
             id: body.id,
             pass: body.pass,
@@ -27,7 +27,7 @@ function loginAccount(req, res){
         });
     }
     else{
-        res.send({
+        res.status(400).send({
             status: 'fail',
             msg: 'login fail'
         });
@@ -45,7 +45,7 @@ function createAccount(req, res){
     const user_data = getDataBase('user_data');
     const body = req.body;
     if (checkAccountExist(req)){
-        res.send({
+        res.status(400).send({
             status: 'fail',
             msg: 'account already exist'
         });
@@ -53,7 +53,7 @@ function createAccount(req, res){
     else{
         user_data[body.id] = body.pass;
         fs.writeFileSync('src/server/data/user_data.json', JSON.stringify(user_data));
-        res.send({
+        res.status(200).send({
             status: 'success',
             msg: 'create account success'
         });
@@ -71,7 +71,7 @@ function addUserSub(req, res){
         user_sub_data[body.id] = Array(body.creator_id);
     }
     fs.writeFileSync('src/server/data/user_sub_data.json', JSON.stringify(user_sub_data));
-    res.send({
+    res.status(200).send({
         status: 'success',
         msg: 'add sub success'
     });
@@ -85,13 +85,13 @@ function removeUserSub(req, res){
     if (body.id in user_sub_data){
         const index = user_sub_data[body.id].indexOf(body.creator_id);
         user_sub_data[body.id].splice(index, 1);
-        res.send({
+        res.status(200).send({
             status: 'success',
             msg: 'delete sub success'
         });
     }
     else{
-        res.send({
+        res.status(404).send({
             status: 'fail',
             msg: 'user_sub_data[id] does not exist. Delete creator is NULL.'
         });
@@ -109,7 +109,7 @@ function updateWatchHist(req, res){
         user_watch_hist_data[body.id] = Array(body.creator_id);
     }
     fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
-    res.send({
+    res.status(200).send({
         status: 'success',
         msg: 'update watch hist success'
     });
@@ -122,7 +122,7 @@ function clearWatchHist(req, res){
         user_watch_hist_data[body.id] = [];
     }
     fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
-    res.send({
+    res.status(200).send({
         status: 'success',
         msg: 'clear watch hist success'
     });
@@ -138,7 +138,7 @@ function addCreator(req, res){
         creator_data[body.creator_id] = Array({'platform': body.platform, 'url': body.url});
     }
     fs.writeFileSync('src/server/data/creator_data.json', JSON.stringify(creator_data));
-    res.send({
+    res.status(200).send({
         status: 'success',
         msg: 'add creator success'
     });
@@ -150,12 +150,12 @@ function getUserData(req, res) {
     const body = req.body;
     const params = req.params;
     if (params.id in user_data) {
-        res.send({
+        res.status(200).send({
             user_id: params.id,
             password: user_data[params.id]
         });
     } else {
-        res.send({
+        res.status(404).send({
             Error: 'User not found.'
         });
     }
@@ -166,12 +166,12 @@ function getUserSubData(req, res) {
     const body = req.body;
     const params = req.params;
     if (params.id in user_sub_data) {
-        res.send({
+        res.status(200).send({
             user_id: params.id,
             subs: user_sub_data[params.id]
         });
     } else {
-        res.send({
+        res.status(404).send({
             Error: 'User not found.'
         });
     }
