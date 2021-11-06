@@ -65,10 +65,10 @@ export function addUserSub(req, res){
     const user_sub_data = getDataBase('user_sub_data');
     const body = req.body;
     if (body.id in user_sub_data){
-        user_sub_data[id].add(body.sub_id);
+        user_sub_data[id].add(body.creator_id);
     }
     else{
-        user_sub_data[id] = new Set([body.sub_id]);
+        user_sub_data[id] = new Set([body.creator_id]);
     }
     fs.writeFileSync('./data/user_sub_data.json', JSON.stringify(user_sub_data));
     res.send({
