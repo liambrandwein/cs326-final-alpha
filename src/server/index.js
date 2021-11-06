@@ -61,3 +61,6 @@ app.get('/getusersubdata/:id', handle.getUserSubData);
 app.get('/getuserwatchhist/:id', handle.getUserWatchHist);
 
 app.get('/getcreatordata/:id', handle.getCreatorData);
+// This version gets all the creator data
+app.get('/getallcreatordata', handle.getAllCreatorData);
+

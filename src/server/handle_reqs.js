@@ -209,6 +209,11 @@ function getCreatorData(req, res) {
     }
 }
 
+function getAllCreatorData(req, res) {
+    const creator_data = getDataBase('creator_data');
+    res.status(200).send(creator_data);
+}
+
 
 module.exports = {
     getDataBase,
@@ -223,5 +228,6 @@ module.exports = {
     getUserData,
     getUserSubData,
     getUserWatchHist,
-    getCreatorData
+    getCreatorData,
+    getAllCreatorData
 }
