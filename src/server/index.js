@@ -27,12 +27,16 @@ app.get('/history', (req, res) => {
     res.sendFile('history.html', {root: 'src'});
 });
 
-app.get('/subscriptions', (req, res) => {
+app.get('/subscription', (req, res) => {
     res.sendFile('manager.html', {root: 'src'});
 });
 
 app.get('/signin', (req, res) => {
     res.sendFile('signin.html', {root: 'src'});
+});
+
+app.get('/signup', (req, res) => {
+    res.sendFile('signup.html', {root: 'src'});
 });
 
 app.post('/createaccount', (req, res) => {   
