@@ -39,6 +39,10 @@ app.get('/signup', (req, res) => {
     res.sendFile('signup.html', {root: 'src'});
 });
 
+app.get('/results', (req, res) => {
+    res.sendFile('searchResult.html', {root: 'src'});
+})
+
 app.post('/createaccount', (req, res) => {   
     // {id: 'email@aol.com', password: 'asdfj42fg'} 
     const body = req.body;
