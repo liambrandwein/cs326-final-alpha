@@ -11,15 +11,9 @@ app.listen(
     PORT,
     () => console.log('server up!')
 );
-// TESTING API
-// app.get('/test', (req, res) => {
-//     res.status(200).send({
-//         test: 'hi',
-//         next: 'other'
-//     });
-// });
 
 // STATIC HTML:
+
 app.get('/', (req, res) => {
     res.sendFile('index.html', {root: 'src'});
 });
@@ -44,6 +38,8 @@ app.get('/results', (req, res) => {
     res.sendFile('searchResult.html', {root: 'src'});
 })
 
+// CRUD (no read)
+
 app.post('/createaccount', handle.createAccount);
 
 app.post('/addusersub', handle.addUserSub);
@@ -56,6 +52,12 @@ app.delete('/clearwatchhist', handle.clearWatchHist);
 
 app.post('/addcreator', handle.addCreator);
 
-// API GETTERS
+// API GETTERS (read)
 
+app.get('/getuserdata/:id', handle.getUserData);
 
+app.get('/getusersubdata/:id', handle.getUserSubData);
+
+app.get('/getuserwatchhist/:id', handle.getUserWatchHist);
+
+app.get('/getcreatordata/:id', handle.getCreatorData);

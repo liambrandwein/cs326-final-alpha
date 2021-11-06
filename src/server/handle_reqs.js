@@ -144,6 +144,72 @@ function addCreator(req, res){
     });
 }
 
+// API GETTERS
+function getUserData(req, res) {
+    const user_data = getDataBase('user_data');
+    const body = req.body;
+    const params = req.params;
+    if (params.id in user_data) {
+        res.send({
+            user_id: params.id,
+            password: user_data[params.id]
+        });
+    } else {
+        res.send({
+            Error: 'User not found.'
+        });
+    }
+}
+
+function getUserSubData(req, res) {
+    const user_sub_data = getDataBase('user_sub_data');
+    const body = req.body;
+    const params = req.params;
+    if (params.id in user_sub_data) {
+        res.send({
+            user_id: params.id,
+            subs: user_sub_data[params.id]
+        });
+    } else {
+        res.send({
+            Error: 'User not found.'
+        });
+    }
+}
+
+function getUserWatchHist(req, res) {
+    const user_watch_hist_data = getDataBase('user_watch_hist_data');
+    const body = req.body;
+    const params = req.params;
+    if (params.id in user_watch_hist_data) {
+        res.send({
+            user_id: params.id,
+            history: user_watch_hist_data[params.id]
+        });
+    } else {
+        res.send({
+            Error: 'User not found.'
+        });
+    }
+}
+
+function getCreatorData(req, res) {
+    const creator_data = getDataBase('creator_data');
+    const body = req.body;
+    const params = req.params;
+    if (params.id in creator_data) {
+        res.send({
+            creator_id: params.id,
+            platforms: creator_data[params.id]
+        });
+    } else {
+        res.send({
+            Error: 'Creator not found.'
+        });
+    }
+}
+
+
 module.exports = {
     getDataBase,
     loginAccount,
@@ -153,5 +219,9 @@ module.exports = {
     removeUserSub,
     updateWatchHist,
     clearWatchHist,
-    addCreator
+    addCreator,
+    getUserData,
+    getUserSubData,
+    getUserWatchHist,
+    getCreatorData
 }
