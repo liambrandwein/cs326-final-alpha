@@ -2,10 +2,10 @@
 import { createRequire } from 'module';
 let fs = require('fs');
 
-function getDataBase(data_type){
+export function getDataBase(data_type){
     const supported_data_types = ['user_data', 'creator_data', 
                                 'user_watch_hist_data', 'user_sub_data' ];
-    if (data_type in supported_data_types){
+    if (!data_type in supported_data_types){
         console.alert("BUG: data not supported");
         return {};
     }
@@ -15,7 +15,7 @@ function getDataBase(data_type){
 }
 
 // verify if user's supplied account and password match the data in the database
-function loginAccount(req, res){
+export function loginAccount(req, res){
     const user_data = getDataBase('user_data');
     const body = req.body;
     if (body.id  in user_data || user_data[body.id] === body.pass){
@@ -35,13 +35,13 @@ function loginAccount(req, res){
 }
 
 // check if user's account is already in the database. 
-function checkAccountExist(req){
+export function checkAccountExist(req){
     const user_data = getDataBase('user_data');
     const body = req.body;
     return body.id in user_data;
 }
 // check if new account can be created
-function createAccount(req, res){
+export function createAccount(req, res){
     const user_data = getDataBase('user_data');
     const body = req.body;
     if (checkAccountExist(req)){
@@ -59,3 +59,42 @@ function createAccount(req, res){
         });
     }
 }
+
+// add a new creator to the user's sub list
+export function addUserSub(req, res){
+    const user_sub_data = getDataBase('user_sub_data');
+    const body = req.body;
+    if (body.id in user_sub_data){
+        user_sub_data[id].add(body.sub_id);
+    }
+    else{
+        user_sub_data[id] = new Set([body.sub_id]);
+    }
+    fs.writeFileSync('./data/user_sub_data.json', JSON.stringify(user_sub_data));
+    res.send({
+        status: 'success',
+        msg: 'add sub success'
+    });
+}
+
+// remove a creator from the user's sub list
+// user_sub_data[id] = set
+export function removeUserSub(req, res){
+    const user_sub_data = getDataBase('user_sub_data');
+    const body = req.body;
+    if (body.id in user_sub_data){
+        user_sub_data[id].delete(body.sub_id);
+        res.send({
+            status: 'success',
+            msg: 'delete sub success'
+        });
+    }
+    else{
+        res.send({
+            status: 'fail',
+            msg: 'user_sub_data[id] does not exist. Delete creator is NULL.'
+        });
+    }
+    fs.writeFileSync('./data/user_sub_data.json', JSON.stringify(user_sub_data));
+}
+    
