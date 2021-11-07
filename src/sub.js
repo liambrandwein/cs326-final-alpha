@@ -1,3 +1,18 @@
+
+async function unsubscribe(creator_id) {
+    console.log("remove creator_id");
+    const url = '/removeusersub/'
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({ id: creator_id})
+    });
+    console.log(response)
+    window.location.reload();
+}
+
 async function loadSubs() {
     const email = window.localStorage.getItem('username');
     const url = '/getusersubdata/' + email;
@@ -27,13 +42,14 @@ async function loadSubs() {
               <div class="card-body">
                 <h5 class="card-title">${creator_id}</h5>
                 <p class="card-text">${content_tag}</p>
-                <a href="#" class="btn btn-danger">unsubscribe</a>
+                <a id="unsub-${creator_id}" class="btn btn-danger">unsubscribe</a>
               </div>
             </div>
           </div>
         </div>
         `;
         document.getElementById('manager-cards').insertAdjacentHTML( 'beforeend', div);
+        document.getElementById(`unsub-${creator_id}`).addEventListener('click', () => unsubscribe(creator_id));
     }
 }
 
