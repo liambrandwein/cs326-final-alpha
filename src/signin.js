@@ -1,6 +1,6 @@
 // If login (username) exists in localStorage, then redirect to the main page
 if (window.localStorage.getItem('username')) {
-    window.location.href = 'http://localhost:8080';
+    window.location.href = 'http://localhost:' + (process.env.port || 8080);
 }
 
 async function validateLogin() {

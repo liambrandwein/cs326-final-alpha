@@ -1,14 +1,14 @@
 const express = require('express');
 const handle = require('./handle_reqs');
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 
 app.use(express.json());
 
 app.use(express.static('src'));
 
 app.listen(
-    PORT,
+    process.env.port || PORT,
     () => console.log('server up!')
 );
 
