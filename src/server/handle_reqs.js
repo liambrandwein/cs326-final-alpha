@@ -82,9 +82,13 @@ function addUserSub(req, res){
 function removeUserSub(req, res){
     const user_sub_data = getDataBase('user_sub_data');
     const body = req.body;
-    if (body.id in user_sub_data){
-        const index = user_sub_data[body.id].indexOf(body.creator_id);
-        user_sub_data[body.id].splice(index, 1);
+    console.log("remove user sub")
+    console.log(body);
+    console.log(user_sub_data)
+    if (user_sub_data[body.user_id].includes(body.creator_id)){
+        console.log("in data!");
+        const index = user_sub_data[body.user_id].indexOf(body.creator_id);
+        user_sub_data[body.user_id].splice(index, 1);
         res.status(200).send({
             status: 'success',
             msg: 'delete sub success'

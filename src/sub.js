@@ -1,13 +1,14 @@
 
 async function unsubscribe(creator_id) {
     console.log("remove creator_id");
-    const url = '/removeusersub/'
+    const url = '/removeusersub';
+    console.log("removing ")
     const response = await fetch(url, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify({ id: creator_id})
+        body: JSON.stringify({ creator_id: creator_id, user_id: window.localStorage.getItem('username') })
     });
     console.log(response)
     window.location.reload();
