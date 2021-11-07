@@ -1,1 +1,9 @@
-{"hikaru":[{"platform":"YouTube","url":"https://youtube.com/hikaru"},{"platform":"Twitch","url":"twitch.tv/hikaru"}],"gm_hikaru":[{"platform":"Twitch","url":"twitch.tv/hikaruu"}]}
+{"hikaru": {"data": [{"platform":"YouTube","url":"https://youtube.com/hikaru"},{"platform":"Twitch","url":"twitch.tv/hikaru"}],
+            "profile_pic": "hikaru.jpeg", "content_tag": ["chess"]},
+"Daniel Narodistky": {"data": [{"platform":"YouTube","url":"https://youtube.com/hikaru"},{"platform":"Twitch","url":"twitch.tv/hikaru"}],
+                    "profile_pic": "hist1.jpeg", "content_tag": ["chess"]},
+"Muyskerm": {"data": [{"platform":"YouTube","url":"https://youtube.com/hikaru"},{"platform":"Twitch","url":"twitch.tv/hikaru"}],
+            "profile_pic": "hist2.jpeg", "content_tag": ["Gaming", "Among Us", "Chatting"]},
+"moistcr1tikal": {"data": [{"platform":"YouTube","url":"https://youtube.com/hikaru"},{"platform":"Twitch","url":"twitch.tv/hikaru"}],
+                "profile_pic": "hist3.jpeg", "content_tag": ["Gaming", "Valorant"]}
+}

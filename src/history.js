@@ -13,8 +13,8 @@ async function loadHistory() {
         const creator_response = await fetch(creator_url);
         const creator_data = await creator_response.json();
         const pic = creator_data.profile_pic;
-        const platform = creator_data.platform;
         const content_tag = creator_data.content_tag;
+        const platform = history[i]['platform'];
         const last_watch = history[i]['last_watch'];
 
         const div = 
