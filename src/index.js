@@ -1,10 +1,30 @@
 //function for dynamically loading creator content
+if (!window.localStorage.getItem('username')) {
+  window.location.href = 'http://localhost:8080/signin';
+}
 
 async function loadCreator() {
-  const newDiv = document.createElement("card"); //creates card element using div name from index.html
-  const cardContent = 
-        
-  const currentDiv = document.getElementById("card1");
-  document.body.insertBefore(newDiv, currentDiv); 
-  
+  const username = window.localStorage.getItem('username');
+
+  let url = '/getusersubdata/' + username;
+  console.log(url);
+  const subResponse = await fetch(url);
+  const subDataJSON = await subResponse.json();
+  const subData = subDataJSON.subs;
+  url = '/getallcreatordata';
+
+  const cResponse = await fetch(url);
+  const cData = await cResponse.json();
+
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById('t-str-' + i).innerText = subData[i-1];
+    document.getElementById('t-text-' + i).innerText = cData[subData[i-1]].content_tag.join(" ");
+    document.getElementById('t-link-' + i).href = cData[subData[i-1]].data[1].url;
+
+    document.getElementById('yt-str-' + i).innerText = subData[i-1];
+    document.getElementById('yt-text-' + i).innerText = cData[subData[i-1]].content_tag.join(" ");
+    document.getElementById('yt-link-' + i).href = cData[subData[i-1]].data[0].url;
+  }
 }
+
+loadCreator();
