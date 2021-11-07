@@ -73,6 +73,14 @@ This is how a user manages their subscriptions. Upon clicking 'unsubscribe', the
 
 This page tracks a user's watched creators. Upon watching a creator, the list is updated so that that creator is bumped to the top and everyone else is bumped downwards.
 
+### Subscription & Watch History Demo
+![demo](/docs/images/sub_and_hist.gif)
+
+A gif showing how clear-history and unsubscribbing work in practice.
+
+### Search Result
+
+We're not currently implementing search result since that would require fetching results from various platform APIs. We'll need to look into Twitch, Youtube, and Facebook Gaming API in the future.
 
 ## Division of Labor
 
