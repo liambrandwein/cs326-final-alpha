@@ -1,6 +1,6 @@
 // If login (username) exists in localStorage, then redirect to the main page
 if (window.localStorage.getItem('username')) {
-    window.location.href = 'http://localhost:' + process.env.PORT;
+    window.location.href = 'https://cs-326-alpha.herokuapp.com';
 }
 
 async function validateLogin() {
@@ -24,10 +24,10 @@ async function validateLogin() {
     // Store login info -- this only executes if you have an account
     window.localStorage.setItem('username', getReturn['user_id']);
 
-    window.location.href = 'http://localhost:' + process.env.PORT;
+    window.location.href = 'https://cs-326-alpha.herokuapp.com';
 }   
 
-document.getElementById('sign-up').href = 'http://localhost:' + process.env.PORT;
+document.getElementById('sign-up').href = 'https://cs-326-alpha.herokuapp.com/signup';
 
 const submitBtn = document.getElementById('sign-in');
 
