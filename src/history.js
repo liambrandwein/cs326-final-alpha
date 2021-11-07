@@ -1,12 +1,12 @@
 
 async function loadHistory() {
     const email = window.localStorage.getItem('username');
-    console.log("Loading history for ");
     const url = '/getuserwatchhist/' + email;
     const response = await fetch(url);
     const data = await response.json();
     const history = data.history;
 
+    // display the history
     for (let i = 0; i < history.length; i++) {
         const creator_id = history[i]['creator_id'];
         // query creator's data
