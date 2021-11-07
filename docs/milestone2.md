@@ -51,6 +51,15 @@ Standard CRUD operations were employed for the rest of the site.
 
 ## Frontend Code
 
-TODO: also include 4 screenshots
+### Sign In
+![sign_in](/docs/images/signin_screenshot.png)
+
+This is essentially the main page if you are not signed in. Site use requires sign in. It will reject an invalid login. It will redirect to home page upon successful login. The login operation uses a CRUD read operation in the form of a GET request to all the created accounts. 
+
+### Sign Up
+![sign_up](/docs/images/signup_screenshot.png)
+
+Standard sign up page. Uses a complex regex (that we did not make) to check if the email is valid and unused, and also makes sure that passwords are eight characters and match. Uses a CRUD create operation in the form of a POST request upon succesful account creation.
+
 
 ## Division of Labor
