@@ -7,7 +7,7 @@ async function loadCreator() {
   const username = window.localStorage.getItem('username');
 
   let url = '/getusersubdata/' + username;
-  console.log(url);
+  
   const subResponse = await fetch(url);
   const subDataJSON = await subResponse.json();
   const subData = subDataJSON.subs;
@@ -17,6 +17,7 @@ async function loadCreator() {
   const cData = await cResponse.json();
 
   for (let i = 1; i <= 3; i++) {
+    if (i > subData.length) {break;}
     document.getElementById('t-str-' + i).innerText = subData[i-1];
     document.getElementById('t-text-' + i).innerText = cData[subData[i-1]].content_tag.join(" ");
     document.getElementById('t-link-' + i).href = cData[subData[i-1]].data[1].url;
