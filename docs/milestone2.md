@@ -1,6 +1,8 @@
 # CS 326 Project
 # Milestone 2
 
+https://cs-326-alpha.herokuapp.com/
+
 ## API Planning
 
 ![api_plan](/docs/images/ApiPlan.jpg)
@@ -60,6 +62,16 @@ This is essentially the main page if you are not signed in. Site use requires si
 ![sign_up](/docs/images/signup_screenshot.png)
 
 Standard sign up page. Uses a complex regex (that we did not make) to check if the email is valid and unused, and also makes sure that passwords are eight characters and match. Uses a CRUD create operation in the form of a POST request upon succesful account creation.
+
+### Subscription Manager
+![unsub](/docs/images/unsub_screenshot.png)
+
+This is how a user manages their subscriptions. Upon clicking 'unsubscribe', the user's clicked subscription is removed from their list of subscribed creators. This happens using a CRUD delete operation in the form of a delete request.
+
+### Watch History
+![history](/docs/images/hist_screenshot.png)
+
+This page tracks a user's watched creators. Upon watching a creator, the list is updated so that that creator is bumped to the top and everyone else is bumped downwards.
 
 
 ## Division of Labor

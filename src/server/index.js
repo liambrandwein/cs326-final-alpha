@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.static('src'));
 
 app.listen(
-    process.env.port || PORT,
+    process.env.PORT || PORT,
     () => console.log('server up!')
 );
 
