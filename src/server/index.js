@@ -1,7 +1,7 @@
 const express = require('express');
 const handle = require('./handle_reqs');
 const app = express();
-const PORT = 8080;
+const PORT = 3000;
 
 app.use(express.json());
 

@@ -63,3 +63,7 @@ Standard sign up page. Uses a complex regex (that we did not make) to check if t
 
 
 ## Division of Labor
+
+Liam Brandwein - API, Sign In/Sign Up pages, front-end for those pages, etc.  
+Long Le - API, subscription manager page, history, front-end, etc.  
+Aarat Satyavolu - API, docs, home page, front-end, etc.
