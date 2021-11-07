@@ -145,6 +145,24 @@ function addCreator(req, res){
 }
 
 // API GETTERS
+function getCreatorData(req, res) {
+    const creator_data = getDataBase('creator_data');
+    const body = req.body;
+    const params = req.params;
+    if (params.id in creator_data) {
+        res.status(200).send({
+            user_id: params.id,
+            platform: creator_data['platform'],
+            content_tag: creator_data['content_tag'],
+            profile_pic: creator_data['pic'],
+        });
+    } else {
+        res.status(404).send({
+            Error: 'Creator not found.'
+        });
+    }
+}
+
 function getUserData(req, res) {
     const user_data = getDataBase('user_data');
     const body = req.body;
