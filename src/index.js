@@ -1,6 +1,6 @@
 //function for dynamically loading creator content
 if (!window.localStorage.getItem('username')) {
-  window.location.href = 'http://localhost:' + (process.env.port || 8080) + '/signin';
+  window.location.href = 'http://localhost:' + (process.env.PORT || 8080) + '/signin';
 }
 
 async function loadCreator() {
