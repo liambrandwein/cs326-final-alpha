@@ -1,6 +1,8 @@
 
 async function loadHistory() {
     const email = window.localStorage.getItem('username');
+    console.log("Loading history for ");
+    console.log(email);
     const url = '/getuserdata/' + email;
     const response = await fetch(url);
     const data = await response.json();
@@ -51,6 +53,8 @@ async function clearHistory() {
     window.location.reload();
 }
 
+
+loadHistory();
 const createBtn = document.getElementById('clear-history');
 
 createBtn.addEventListener('click', clearHistory);
