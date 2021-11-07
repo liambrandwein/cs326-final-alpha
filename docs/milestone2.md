@@ -82,6 +82,10 @@ A gif showing how clear-history and unsubscribbing work in practice.
 
 We're not currently implementing search result since that would require fetching results from various platform APIs. We'll need to look into Twitch, Youtube, and Facebook Gaming API in the future.
 
+### Home Page
+
+For now, we use the subscribed creators to display in home-page as "fake" results. In the future, we will have to validate if the creator is actually "live" and only display the "live" results.
+
 ## Division of Labor
 
 Liam Brandwein - API, Sign In/Sign Up pages, front-end for those pages, etc.  
