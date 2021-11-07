@@ -216,10 +216,7 @@ function getCreatorData(req, res) {
     const body = req.body;
     const params = req.params;
     if (params.id in creator_data) {
-        res.send({
-            creator_id: params.id,
-            platforms: creator_data[params.id]
-        });
+        res.send(creator_data[params.id]);
     } else {
         res.send({
             Error: 'Creator not found.'

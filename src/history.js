@@ -2,8 +2,7 @@
 async function loadHistory() {
     const email = window.localStorage.getItem('username');
     console.log("Loading history for ");
-    console.log(email);
-    const url = '/getuserdata/' + email;
+    const url = '/getuserwatchhist/' + email;
     const response = await fetch(url);
     const data = await response.json();
     const history = data.history;
@@ -11,9 +10,14 @@ async function loadHistory() {
     for (let i = 0; i < history.length; i++) {
         const creator_id = history[i]['creator_id'];
         // query creator's data
-        const creator_url = '/getuserdata/' + creator_id;
+        const creator_url = '/getcreatordata/' + creator_id;
         const creator_response = await fetch(creator_url);
         const creator_data = await creator_response.json();
+
+        if (i == 0) {
+            console.log(creator_data)
+            console.log(creator_data['profile_pic']);
+        }
         const pic = creator_data.profile_pic;
         const content_tag = creator_data.content_tag;
         const platform = history[i]['platform'];
@@ -34,8 +38,8 @@ async function loadHistory() {
         </div>
         </div>
     </div>`;
-        }
        document.getElementById('history-cards').insertAdjacentHTML( 'beforeend', div);
+        }
 
 }
 
