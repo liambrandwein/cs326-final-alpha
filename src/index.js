@@ -1,6 +1,6 @@
 //function for dynamically loading creator content
 if (!window.localStorage.getItem('username')) {
-  window.location.href = 'https://cs-326-alpha.herokuapp.com/signin';
+  window.location.href = './signin';
 }
 
 async function loadCreator() {
