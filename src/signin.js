@@ -17,7 +17,7 @@ async function validateLogin() {
     const response = await fetch(url);
     const getReturn = await response.json();
     
-    if (getReturn.hasOwnProperty('Error')) {
+    if (getReturn.hasOwnProperty('Error') || password !== getReturn.password) {
         alert('Incorrect username and/or password.');
         return 0;
     }
