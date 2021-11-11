@@ -3,35 +3,39 @@
 //   "mongodb+srv://admin:GLuoPTN8eB3eA5Xc@326-final-alpha.juhom.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 // DELETE LATER ^^^^^^
 const { MongoClient } = require("mongodb");
+const bcrypt = require("bcrypt");
 
-let secrets;
-let pass;
-if (!process.env.PASSWORD) {
-    secrets = require('./secrets.json');
-    pass = secrets.password;
-} else {
-    pass = process.env.PASSWORD;
-}
 
-// Replace the following with values for your environment.
-const username = encodeURIComponent("admin");
-const password = encodeURIComponent(pass);
-const clusterUrl = "326-final-alpha.juhom.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
-// Replace the following with your MongoDB deployment's connection string.
-const uri =
-`mongodb+srv://${username}:${password}@${clusterUrl}`;
+// Function to connect to the server (mquery is the mongo query to write, "end"
+// is the array to push thing onto
+async function run(mQuery, req, res, end) {
+    let secrets;
+    let pass;
+    if (!process.env.PASSWORD) {
+        secrets = require('./secrets.json');
+        pass = secrets.password;
+    } else {
+        pass = process.env.PASSWORD;
+    }
 
-// Create a new MongoClient
-const client = new MongoClient(uri);
+    // Replace the following with values for your environment.
+    const username = encodeURIComponent("admin");
+    const password = encodeURIComponent(pass);
+    const clusterUrl = "326-final-alpha.juhom.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
-// Function to connect to the server
-async function run() {
+    // Replace the following with your MongoDB deployment's connection string.
+    const uri =
+    `mongodb+srv://${username}:${password}@${clusterUrl}`;
+
+    // Create a new MongoClient
+    const client = new MongoClient(uri);
     try {
         // Connect the client to the server
         await client.connect();
-
-        await createTest(client, {"user_id": "username", "pass": "password123"});
+        // to allow function to retrieve result
+        const result = await mQuery(client, req, res);
+        end.push[result];
         // Establish and verify connection
         await client.db("admin").command({ ping: 1 });
         console.log("Connected successfully to server");
@@ -40,49 +44,72 @@ async function run() {
         await client.close();
     }
 }
-run().catch(console.dir);
+//EXPORT THIS: run().catch(console.dir);
 // Remember: must call functions in the run function
-async function createTest(client, object) {
-    const result = await client.db("watchalldata").collection("userdata").insertOne(object);
-    console.log(result);
+async function createAcc(client, req, res) {
+    const body = req.body
+    // Schema is { 'id': 'password (hashed)' }
+    const email = body.id;
+    const checkResult = await client.db("watchalldata").collection("userdata").findOne({'id': email});
+    // Checks if the email exists
+    if (checkResult) {
+        return 0;
+    }
+    const pass = await bcrypt.hash(body.pass, 1);
+    const obj = {};
+    obj['id'] = email;
+    obj['password'] = pass;
+    const result = await client.db("watchalldata").collection("userdata").insertOne(obj);
+    
+    return result;
 }
 
-async function createAcc(client, body) {
+async function addSub(client, req, res) {
 
 }
 
-async function addSub(client, body) {
+async function removeSub(client, req, res) {
 
 }
 
-async function removeSub(client, body) {
+async function updateHist(client, req, res) {
 
 }
 
-async function updateHist(client, body) {
-
-}
-
-async function clearHist(client) {
+async function clearHist(client, req, res) {
 
 }
 // API GETTERS
-async function getCreator(client, body, params) {
+async function getCreator(client, req, res) {
 
 }
 
-async function getAllCreator(client) {
+async function getAllCreator(client, req, res) {
 
 }
 
-async function getUser(client, body, params) {
+async function getUser(client, req, res) {
 
 }
 
-async function getSubs(client, body, params) {
+async function getSubs(client, req, res) {
 
 }
 
-async function getHist(client, body, params) {
+async function getHist(client, req, res) {
     
+}
+
+module.exports = {
+    run,
+    createAcc,
+    addSub,
+    removeSub,
+    updateHist,
+    clearHist,
+    getCreator,
+    getAllCreator,
+    getUser,
+    getSubs,
+    getHist
 }
