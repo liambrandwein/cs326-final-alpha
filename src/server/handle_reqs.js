@@ -1,6 +1,6 @@
 'use strict';
 let fs = require('fs');
-
+// REQUIRED FILES IN NOTEPAD++
 function getDataBase(data_type){
     const supported_data_types = ['user_data', 'creator_data', 
                                 'user_watch_hist_data', 'user_sub_data' ];
