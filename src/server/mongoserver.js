@@ -7,7 +7,9 @@ const bcrypt = require("bcrypt");
 
 
 
-// Function to connect to the server (mquery is the mongo query to write
+// Function to connect to the server (mQuery is the function passed to this
+// function in handle_reqs.js. To get data from the MongoDB Atlas server in 
+// handle_reqs.js, do 'await mongoserver.run(mongoserver.[mQuery], req, res)'
 async function run(mQuery, req, res) {
     let secrets;
     let pass;
@@ -44,11 +46,14 @@ async function run(mQuery, req, res) {
         return result
     }
 }
-//EXPORT THIS: run().catch(console.dir);
-// Remember: must call functions in the run function
+// Remember: must pass function names to the run function mQuery parameter
+
+// DONE
+// Old schema (user_data.json): { 'email': 'password' }
+// New schema (userdata collection): { 'id': 'email', 'password': 'password' }
 async function createAcc(client, req, res) {
     const body = req.body;
-    // Schema is { 'id': 'password (hashed)' }
+    
     const email = body.id;
     const checkResult = await client.db("watchalldata").collection("userdata").findOne({'id': email});
     // Checks if the email exists
@@ -64,30 +69,43 @@ async function createAcc(client, req, res) {
     return result;
 }
 
+// TODO:
+// Old schema (user_sub_data.json): { 'email': ['creator name', 'creator name',...]}
+// New schema (usersubdata collection): { 'id': 'email', 'creators': ['creator name', 'creator name',...]}
 async function addSub(client, req, res) {
-    // V TODO: FINISH THIS LATER V
+    
 }
-
+// TODO: 
 async function removeSub(client, req, res) {
 
 }
-
+// TODO: 
+// Old schema (user_watch_hist_data.json): { 'email': ['creator name', 'creator name',...]}
+// New schema (userwatchhistdata collection, very similar to usersubdata): { 'id': 'email', 'creators': ['creator name', 'creator name',...]}
 async function updateHist(client, req, res) {
 
 }
-
+// TODO:
 async function clearHist(client, req, res) {
 
 }
 // API GETTERS
+
+// TODO:
+// Old schema (creator_data.json): { 'creator name': { 'data': [{ 'platform': 'platform name', 'url': 'url'},...] } }
+// New schema (creatordata collection): { 'id': 'creator name', 'data': [{ 'platform': 'platform name', 'url': 'url'},...] }
 async function getCreator(client, req, res) {
 
 }
-
+// TODO:
 async function getAllCreator(client, req, res) {
 
 }
+// TODO (this is for addCreator in handle_reqs.js):
+async function addCreate(client, req, res) {
 
+}
+// DONE
 async function getUser(client, req, res) {
     const email = req.params.id;
     const checkResult = await client.db("watchalldata").collection("userdata").findOne({'id': email});
@@ -101,11 +119,11 @@ async function getUser(client, req, res) {
     };
     return obj
 }
-
+// TODO:
 async function getSubs(client, req, res) {
 
 }
-
+// TODO:
 async function getHist(client, req, res) {
     
 }
@@ -117,6 +135,7 @@ module.exports = {
     removeSub,
     updateHist,
     clearHist,
+    addCreate,
     getCreator,
     getAllCreator,
     getUser,
