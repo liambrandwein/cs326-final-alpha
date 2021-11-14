@@ -1,6 +1,8 @@
 'use strict';
 let fs = require('fs');
 let mongodb = require('mongodb');
+let mongoserver = require('./mongoserver');
+let bcrypt = require('bcrypt');
 // REQUIRED FILES IN NOTEPAD++
 function getDataBase(data_type){
     const supported_data_types = ['user_data', 'creator_data', 
@@ -42,27 +44,26 @@ function checkAccountExist(req){
     return body.id in user_data;
 }
 // check if new account can be created
-function createAccount(req, res){
-    const user_data = getDataBase('user_data');
-    const body = req.body;
-    if (checkAccountExist(req)){
+async function createAccount(req, res){
+    const result = await mongoserver.run(mongoserver.createAcc, req, res);
+    if (result === 0){
         res.status(400).send({
             status: 'fail',
             msg: 'account already exist'
         });
     }
-    else{
-        user_data[body.id] = body.pass;
-        fs.writeFileSync('src/server/data/user_data.json', JSON.stringify(user_data));
+    else {
         res.status(200).send({
             status: 'success',
             msg: 'create account success'
         });
     }
 }
-
+// V TODO: FINISH THIS LATER V
 // add a new creator to the user's sub list
-function addUserSub(req, res){
+async function addUserSub(req, res){
+    const result = await mongoserver.run(mongoserver.addSub, req, res);
+
     const user_sub_data = getDataBase('user_sub_data');
     const body = req.body;
     if (body.id in user_sub_data){
@@ -168,18 +169,25 @@ function getCreatorData(req, res) {
     }
 }
 
-function getUserData(req, res) {
-    const user_data = getDataBase('user_data');
-    const body = req.body;
-    const params = req.params;
-    if (params.id in user_data) {
-        res.status(200).send({
-            user_id: params.id,
-            password: user_data[params.id]
-        });
-    } else {
+async function getUserData(req, res) {
+    const user_data = await mongoserver.run(mongoserver.getUser, req, res);
+    // Function also checks if password matches
+
+    if (user_data === 0) {
         res.status(404).send({
             Error: 'User not found.'
+        });
+        return;
+    } 
+    const passMatch = await bcrypt.compare(req.params.password, user_data.password);
+    if (!passMatch) {
+        res.status(404).send({
+            Error: 'User not found.'
+        });
+    } else {
+        res.status(200).send({
+            user_id: user_data['id'],
+            password: user_data['password']
         });
     }
 }

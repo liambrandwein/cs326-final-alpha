@@ -12,12 +12,12 @@ async function validateLogin() {
         return 0;
     }
 
-    const url = '/getuserdata/' + email;
+    const url = '/getuserdata/' + email + '/' + password;
 
     const response = await fetch(url);
     const getReturn = await response.json();
     
-    if (getReturn.hasOwnProperty('Error') || password !== getReturn.password) {
+    if (getReturn.hasOwnProperty('Error')) {
         alert('Incorrect username and/or password.');
         return 0;
     }

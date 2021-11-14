@@ -54,7 +54,7 @@ app.post('/addcreator', handle.addCreator);
 
 // API GETTERS (read)
 
-app.get('/getuserdata/:id', handle.getUserData);
+app.get('/getuserdata/:id/:password', handle.getUserData);
 
 app.get('/getusersubdata/:id', handle.getUserSubData);
 
