@@ -1,5 +1,6 @@
 'use strict';
 let fs = require('fs');
+let mongodb = require('mongodb');
 // REQUIRED FILES IN NOTEPAD++
 function getDataBase(data_type){
     const supported_data_types = ['user_data', 'creator_data', 
