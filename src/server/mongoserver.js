@@ -69,6 +69,7 @@ async function createAcc(client, req, res) {
     return result;
 }
 
+// DONE
 // TODO:
 // Old schema (user_sub_data.json): { 'email': ['creator name', 'creator name',...]}
 // New schema (usersubdata collection): { 'id': 'email', 'creators': ['creator name', 'creator name',...]}
@@ -76,7 +77,13 @@ async function addSub(client, req, res) {
     const body = req.body;
 
     const email = body.id;
-    const result = await client.db("watchalldata").collection("usersubdata").updateOne({ 'id': email }, { '$push': { 'creators': email } });
+    const checkResult = await client.db("watchalldata").collection("usersubdata").findOne({ 'id': email });
+    
+    if (!checkResult || checkResult.creators.includes(body.creator_id)) {
+        return 0;
+    }
+    
+    const result = await client.db("watchalldata").collection("usersubdata").updateOne({ 'id': email }, { '$push': { 'creators': body.creator_id } });
 
     if (!result) {
         return 0;
@@ -85,8 +92,23 @@ async function addSub(client, req, res) {
     return result;
 }
 // TODO: 
+// DONE
 async function removeSub(client, req, res) {
+    const body = req.body;
 
+    const email = body.user_id;
+    const checkResult = await client.db("watchalldata").collection("usersubdata").findOne({ 'id': email });
+    if (!checkResult || !checkResult.creators.includes(body.creator_id)) {
+        return 0;
+    }
+
+    const result = await client.db("watchalldata").collection("usersubdata").updateOne({ 'id': email }, { '$pull': { 'creators': body.creator_id } });
+
+    if (!result) {
+        return 0;
+    }
+
+    return result;
 }
 // TODO: 
 // Old schema (user_watch_hist_data.json): { 'email': ['creator name', 'creator name',...]}
@@ -129,8 +151,17 @@ async function getUser(client, req, res) {
     return obj
 }
 // TODO:
+// DONE
 async function getSubs(client, req, res) {
+    const params = req.params;
+    const email = params.id
+    const checkResult = await client.db("watchalldata").collection("usersubdata").findOne({ 'id': email });
 
+    if (!checkResult) {
+        return 0;
+    }
+
+    return checkResult;
 }
 // TODO:
 async function getHist(client, req, res) {
