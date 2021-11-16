@@ -59,46 +59,40 @@ async function createAccount(req, res){
         });
     }
 }
+// DONE
 // TODO: Update this to use the mongoserver.js function 'addSub'
 async function addUserSub(req, res){
-    const user_sub_data = getDataBase('user_sub_data');
-    const body = req.body;
-    if (body.id in user_sub_data){
-        user_sub_data[body.id].push(body.creator_id);
+    const result = await mongoserver.run(mongoserver.addSub, req, res);
+    if (result === 0) {
+        res.status(400).send({
+           status: 'Fail',
+           msg: 'Sub addition failed' 
+        });
     }
-    else{
-        user_sub_data[body.id] = Array(body.creator_id);
+    else {
+        res.status(200).send({
+            status: 'success',
+            msg: 'add sub success'
+        });
     }
-    fs.writeFileSync('src/server/data/user_sub_data.json', JSON.stringify(user_sub_data));
-    res.status(200).send({
-        status: 'success',
-        msg: 'add sub success'
-    });
 }
 
 // TODO: Update this to use the mongoserver.js function 'removeSub'
-function removeUserSub(req, res){
-    const user_sub_data = getDataBase('user_sub_data');
-    const body = req.body;
-    console.log("remove user sub")
-    console.log(body);
-    console.log(user_sub_data)
-    if (user_sub_data[body.user_id].includes(body.creator_id)){
-        console.log("in data!");
-        const index = user_sub_data[body.user_id].indexOf(body.creator_id);
-        user_sub_data[body.user_id].splice(index, 1);
-        res.status(200).send({
-            status: 'success',
-            msg: 'delete sub success'
-        });
-    }
-    else{
+async function removeUserSub(req, res){
+    const user_sub_data = await mongoserver.run(mongoserver.removeSub, req, res);
+    
+    if (user_sub_data === 0){
         res.status(404).send({
             status: 'fail',
             msg: 'user_sub_data[id] does not exist. Delete creator is NULL.'
         });
     }
-    fs.writeFileSync('src/server/data/user_sub_data.json', JSON.stringify(user_sub_data));
+    else{
+        res.status(200).send({
+            status: 'success',
+            msg: 'delete sub success'
+        });
+    }
 }
 
 // TODO: Update this to use the mongoserver.js function 'updateHist'
@@ -191,21 +185,21 @@ async function getUserData(req, res) {
         });
     }
 }
-
-function getUserSubData(req, res) {
-    const user_sub_data = getDataBase('user_sub_data');
-    const body = req.body;
+// DONE
+async function getUserSubData(req, res) {
+    const user_sub_data = await mongoserver.run(mongoserver.getSubs, req, res);
     const params = req.params;
-    if (params.id in user_sub_data) {
-        res.status(200).send({
-            user_id: params.id,
-            subs: user_sub_data[params.id]
-        });
-    } else {
+    if (user_sub_data === 0) {
         res.status(404).send({
             Error: 'User not found.'
         });
+    } else {  
+        res.status(200).send({
+            user_id: params.id,
+            subs: user_sub_data.creators
+        });
     }
+    
 }
 
 function getUserWatchHist(req, res) {
