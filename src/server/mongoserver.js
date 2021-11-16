@@ -73,7 +73,16 @@ async function createAcc(client, req, res) {
 // Old schema (user_sub_data.json): { 'email': ['creator name', 'creator name',...]}
 // New schema (usersubdata collection): { 'id': 'email', 'creators': ['creator name', 'creator name',...]}
 async function addSub(client, req, res) {
-    
+    const body = req.body;
+
+    const email = body.id;
+    const result = await client.db("watchalldata").collection("usersubdata").updateOne({ 'id': email }, { '$push': { 'creators': email } });
+
+    if (!result) {
+        return 0;
+    }
+
+    return result;
 }
 // TODO: 
 async function removeSub(client, req, res) {
