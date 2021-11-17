@@ -25,6 +25,11 @@ function shuffle(array) {
 
 
 
+function subscribe(i, data) {
+  // TODO: see function unsubscribe in sub.js for reference
+  console.log('subscribing to channel_name:', data[i].channel_name);
+}
+
 function pageLoad() {
   let query = window.location.hash;
   if (query) {
@@ -77,12 +82,14 @@ async function retrieveResults(query) {
                 <p class="card-text">${platform}</p>
                 <p class="card-text"><small class="text-muted">Live now</small></p>
                 <a href="${url}" class="btn btn-primary">Watch now</a>
+                <a class="btn btn-success" id="sub-${i}">Subscribe</a>
               </div>
             </div>
           </div>
         </div>
     `;
     document.getElementById('search-cards').insertAdjacentHTML('beforeend', div);
+    document.getElementById(`sub-${i}`).addEventListener('click', () => subscribe(i, results));
   }
 
 
