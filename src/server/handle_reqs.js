@@ -244,19 +244,41 @@ function getTwitchSearchResults(req, res) {
         (data) => {
             let parsed_data = [];
             for (let i = 0; i < data.length; i++) {
+                const elt = data[i];
                 parsed_data.push({
-                    name: data[i].name,
-                    profile_pic: data[i].thumbnailUrl,
+                    name: elt.name,
+                    channel_id: elt.name,
+                    channel_name: elt.name,
+                    profile_pic: elt.thumbnailUrl,
+                    platform: 'twitch',
+                    url: `https://www.twitch.tv/${elt.name}`
                 });
             }
-            console.log(parsed_data);
             res.status(200).send(JSON.stringify(parsed_data));
         }
     );
 }
 
 function getYoutubeSearchResults(req, res) {
-    res.send(youtube.getYoutubeResults(req.params.query, 5));
+    youtube.youtubeSearch(req.params.query, 50).then(
+        (data) => {
+            data = data['items'];
+            let parsed_data = [];
+            for (let i = 0; i < data.length; i++) {
+                const elt = data[i]
+                parsed_data.push({
+                    name: elt['snippet'].title,
+                    channel_name: elt['snippet']['channelTitle'],
+                    channel_id: elt['snippet']['channelId'],
+                    profile_pic: elt['snippet']['thumbnails']['high']['url'],
+                    platform: 'youtube',
+                    url: `https://www.youtube.com/watch?v=${elt['id']['videoId']}`
+                });
+            }
+
+            res.status(200).send(JSON.stringify(parsed_data));
+        }
+    );
 }
 module.exports = {
     getDataBase,
