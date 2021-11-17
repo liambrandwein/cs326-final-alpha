@@ -11,7 +11,7 @@ if (!process.env.TWITCHID) {
     secrets = require('../secrets.json');
     clientId = secrets.twitchid;
 } else {
-    accessToken = process.env.TWITCHID;
+    clientId = process.env.TWITCHID;
 }
 
 if (!process.env.TWITCHKEY) {
