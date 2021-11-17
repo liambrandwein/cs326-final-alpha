@@ -3,11 +3,13 @@ let fs = require('fs');
 let mongodb = require('mongodb');
 let mongoserver = require('./mongoserver');
 let bcrypt = require('bcrypt');
+let twitch = require('./external/twitch_get')
+let youtube = require('./external/youtube_get')
 // DELETE AFTER MIGRATION TO MONGODB:
-function getDataBase(data_type){
-    const supported_data_types = ['user_data', 'creator_data', 
-                                'user_watch_hist_data', 'user_sub_data' ];
-    if (!data_type in supported_data_types){
+function getDataBase(data_type) {
+    const supported_data_types = ['user_data', 'creator_data',
+        'user_watch_hist_data', 'user_sub_data'];
+    if (!data_type in supported_data_types) {
         console.alert("BUG: data not supported");
         return {};
     }
@@ -18,10 +20,10 @@ function getDataBase(data_type){
 }
 // DELETE AFTER MIGRATION TO MONGODB:
 // verify if user's supplied account and password match the data in the database
-function loginAccount(req, res){
+function loginAccount(req, res) {
     const user_data = getDataBase('user_data');
     const body = req.body;
-    if (body.id  in user_data || user_data[body.id] === body.pass){
+    if (body.id in user_data || user_data[body.id] === body.pass) {
         res.status(200).send({
             status: 'success',
             id: body.id,
@@ -29,7 +31,7 @@ function loginAccount(req, res){
             msg: 'login success'
         });
     }
-    else{
+    else {
         res.status(400).send({
             status: 'fail',
             msg: 'login fail'
@@ -38,15 +40,15 @@ function loginAccount(req, res){
 }
 // DELETE AFTER MIGRATION TO MONGODB:
 // check if user's account is already in the database. 
-function checkAccountExist(req){
+function checkAccountExist(req) {
     const user_data = getDataBase('user_data');
     const body = req.body;
     return body.id in user_data;
 }
 // check if new account can be created
-async function createAccount(req, res){
+async function createAccount(req, res) {
     const result = await mongoserver.run(mongoserver.createAcc, req, res);
-    if (result === 0){
+    if (result === 0) {
         res.status(400).send({
             status: 'fail',
             msg: 'account already exist'
@@ -61,12 +63,12 @@ async function createAccount(req, res){
 }
 // DONE
 // TODO: Update this to use the mongoserver.js function 'addSub'
-async function addUserSub(req, res){
+async function addUserSub(req, res) {
     const result = await mongoserver.run(mongoserver.addSub, req, res);
     if (result === 0) {
         res.status(400).send({
-           status: 'Fail',
-           msg: 'Sub addition failed' 
+            status: 'Fail',
+            msg: 'Sub addition failed'
         });
     }
     else {
@@ -78,16 +80,16 @@ async function addUserSub(req, res){
 }
 
 // TODO: Update this to use the mongoserver.js function 'removeSub'
-async function removeUserSub(req, res){
+async function removeUserSub(req, res) {
     const user_sub_data = await mongoserver.run(mongoserver.removeSub, req, res);
-    
-    if (user_sub_data === 0){
+
+    if (user_sub_data === 0) {
         res.status(404).send({
             status: 'fail',
             msg: 'user_sub_data[id] does not exist. Delete creator is NULL.'
         });
     }
-    else{
+    else {
         res.status(200).send({
             status: 'success',
             msg: 'delete sub success'
@@ -96,13 +98,13 @@ async function removeUserSub(req, res){
 }
 
 // TODO: Update this to use the mongoserver.js function 'updateHist'
-function updateWatchHist(req, res){
+function updateWatchHist(req, res) {
     const user_watch_hist_data = getDataBase('user_watch_hist_data');
     const body = req.body;
-    if (body.id in user_watch_hist_data){
+    if (body.id in user_watch_hist_data) {
         user_watch_hist_data[body.id].push(body.creator_id);
     }
-    else{
+    else {
         user_watch_hist_data[body.id] = Array(body.creator_id);
     }
     fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
@@ -113,10 +115,10 @@ function updateWatchHist(req, res){
 }
 
 // TODO: Update this to use the mongoserver.js function 'clearHist'
-function clearWatchHist(req, res){
+function clearWatchHist(req, res) {
     const user_watch_hist_data = getDataBase('user_watch_hist_data');
     const body = req.body;
-    if (body.id in user_watch_hist_data){
+    if (body.id in user_watch_hist_data) {
         user_watch_hist_data[body.id] = [];
     }
     fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
@@ -127,14 +129,14 @@ function clearWatchHist(req, res){
 }
 
 // TODO: Update this to use the mongoserver.js function 'addCreate'
-function addCreator(req, res){
+function addCreator(req, res) {
     const creator_data = getDataBase('creator_data');
     const body = req.body;
-    if (body.creator_id in creator_data){
-        creator_data[body.creator_id].push({'platform': body.platform, 'url': body.url});
+    if (body.creator_id in creator_data) {
+        creator_data[body.creator_id].push({ 'platform': body.platform, 'url': body.url });
     }
-    else{
-        creator_data[body.creator_id] = Array({'platform': body.platform, 'url': body.url});
+    else {
+        creator_data[body.creator_id] = Array({ 'platform': body.platform, 'url': body.url });
     }
     fs.writeFileSync('src/server/data/creator_data.json', JSON.stringify(creator_data));
     res.status(200).send({
@@ -171,7 +173,7 @@ async function getUserData(req, res) {
             Error: 'User not found.'
         });
         return;
-    } 
+    }
     // Compare password to hashed one.
     const passMatch = await bcrypt.compare(req.params.password, user_data.password);
     if (!passMatch) {
@@ -193,13 +195,13 @@ async function getUserSubData(req, res) {
         res.status(404).send({
             Error: 'User not found.'
         });
-    } else {  
+    } else {
         res.status(200).send({
             user_id: params.id,
             subs: user_sub_data.creators
         });
     }
-    
+
 }
 
 function getUserWatchHist(req, res) {
@@ -236,7 +238,26 @@ function getAllCreatorData(req, res) {
     res.status(200).send(creator_data);
 }
 
+function getTwitchSearchResults(req, res) {
+    console.log("getting twitch search")
+    twitch.twitchSearch(req.params.query).then(
+        (data) => {
+            let parsed_data = [];
+            for (let i = 0; i < data.length; i++) {
+                parsed_data.push({
+                    name: data[i].name,
+                    profile_pic: data[i].thumbnailUrl,
+                });
+            }
+            console.log(parsed_data);
+            res.status(200).send(JSON.stringify(parsed_data));
+        }
+    );
+}
 
+function getYoutubeSearchResults(req, res) {
+    res.send(youtube.getYoutubeResults(req.params.query, 5));
+}
 module.exports = {
     getDataBase,
     loginAccount,
@@ -251,5 +272,7 @@ module.exports = {
     getUserSubData,
     getUserWatchHist,
     getCreatorData,
-    getAllCreatorData
+    getAllCreatorData,
+    getTwitchSearchResults,
+    getYoutubeSearchResults
 }

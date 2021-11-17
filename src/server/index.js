@@ -15,27 +15,27 @@ app.listen(
 // STATIC HTML:
 
 app.get('/', (req, res) => {
-    res.sendFile('index.html', {root: 'src'});
+    res.sendFile('index.html', { root: 'src' });
 });
 
 app.get('/history', (req, res) => {
-    res.sendFile('history.html', {root: 'src'});
+    res.sendFile('history.html', { root: 'src' });
 });
 
 app.get('/subscription', (req, res) => {
-    res.sendFile('manager.html', {root: 'src'});
+    res.sendFile('manager.html', { root: 'src' });
 });
 
 app.get('/signin', (req, res) => {
-    res.sendFile('signin.html', {root: 'src'});
+    res.sendFile('signin.html', { root: 'src' });
 });
 
 app.get('/signup', (req, res) => {
-    res.sendFile('signup.html', {root: 'src'});
+    res.sendFile('signup.html', { root: 'src' });
 });
 
 app.get('/results', (req, res) => {
-    res.sendFile('searchResult.html', {root: 'src'});
+    res.sendFile('searchResult.html', { root: 'src' });
 })
 
 // CRUD (no read)
@@ -64,3 +64,6 @@ app.get('/getcreatordata/:id', handle.getCreatorData);
 // This version gets all the creator data
 app.get('/getallcreatordata', handle.getAllCreatorData);
 
+// get search results
+app.get('/getTwitchSearchResults/:query', handle.getTwitchSearchResults);
+app.get('/getYoutubeSearchResults/:query', handle.getYoutubeSearchResults);
