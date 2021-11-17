@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 let YOUTUBE_API_KEY;
 
 if (!process.env.YOUTUBEKEY) {
-    let secrets = require('./secrets.json');
+    let secrets = require('../secrets.json');
     YOUTUBE_API_KEY = secrets.youtubekey;
 } else {
     YOUTUBE_API_KEY = process.env.YOUTUBEKEY;

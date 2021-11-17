@@ -8,14 +8,14 @@ let accessToken;
 let secrets;
 
 if (!process.env.TWITCHID) {
-    secrets = require('./secrets.json');
+    secrets = require('../secrets.json');
     clientId = secrets.twitchid;
 } else {
     accessToken = process.env.TWITCHID;
 }
 
 if (!process.env.TWITCHKEY) {
-    secrets = require('./secrets.json');
+    secrets = require('../secrets.json');
     accessToken = secrets.twitchkey;
 } else {
     accessToken = process.env.TWITCHKEY;
