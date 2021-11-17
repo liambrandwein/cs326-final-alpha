@@ -3,16 +3,24 @@
 const { ApiClient } = require('twitch');
 const { StaticAuthProvider } = require('twitch-auth');
 
+let clientId;
 let accessToken;
+let secrets;
+
+if (!process.env.TWITCHID) {
+    secrets = require('./secrets.json');
+    clientId = secrets.twitchid;
+} else {
+    accessToken = process.env.TWITCHID;
+}
 
 if (!process.env.TWITCHKEY) {
-    let secrets = require('./secrets.json');
+    secrets = require('./secrets.json');
     accessToken = secrets.twitchkey;
 } else {
     accessToken = process.env.TWITCHKEY;
 }
 
-const clientId = 'd99f63cxyrwi6cl9ax15o0ib0omfrg';
 const authProvider = new StaticAuthProvider(clientId, accessToken);
 const apiClient = new ApiClient({ authProvider });
 
