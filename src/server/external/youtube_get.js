@@ -1,7 +1,14 @@
 // https://www.awesomecoding.co/posts/tutorial-using-youtube-javascript-api
 const fetch = require("node-fetch");
 
-const YOUTUBE_API_KEY = "AIzaSyDujbVSL0llLBvH0NW4f2EFywgAz1t_4BA";
+let YOUTUBE_API_KEY;
+
+if (!process.env.YOUTUBEKEY) {
+    let secrets = require('../secrets.json');
+    YOUTUBE_API_KEY = secrets.youtubekey;
+} else {
+    YOUTUBE_API_KEY = process.env.YOUTUBEKEY;
+}
 
 
 
