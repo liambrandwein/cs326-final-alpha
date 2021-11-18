@@ -1,6 +1,4 @@
 
-// const uri =
-//   "mongodb+srv://admin:GLuoPTN8eB3eA5Xc@326-final-alpha.juhom.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 // DELETE LATER ^^^^^^
 const { MongoClient } = require("mongodb");
 const bcrypt = require("bcrypt");
@@ -27,7 +25,7 @@ async function run(mQuery, req, res) {
 
     // Replace the following with your MongoDB deployment's connection string.
     const uri =
-    `mongodb+srv://${username}:${password}@${clusterUrl}`;
+        `mongodb+srv://${username}:${password}@${clusterUrl}`;
 
     // Create a new MongoClient
     const client = new MongoClient(uri);
@@ -48,14 +46,13 @@ async function run(mQuery, req, res) {
 }
 // Remember: must pass function names to the run function mQuery parameter
 
-// DONE
 // Old schema (user_data.json): { 'email': 'password' }
 // New schema (userdata collection): { 'id': 'email', 'password': 'password' }
 async function createAcc(client, req, res) {
     const body = req.body;
-    
+
     const email = body.id;
-    const checkResult = await client.db("watchalldata").collection("userdata").findOne({'id': email});
+    const checkResult = await client.db("watchalldata").collection("userdata").findOne({ 'id': email });
     // Checks if the email exists
     if (checkResult) {
         return 0;
@@ -65,12 +62,10 @@ async function createAcc(client, req, res) {
     obj['id'] = email;
     obj['password'] = pass;
     const result = await client.db("watchalldata").collection("userdata").insertOne(obj);
-    
+
     return result;
 }
 
-// DONE
-// TODO:
 // Old schema (user_sub_data.json): { 'email': ['creator name', 'creator name',...]}
 // New schema (usersubdata collection): { 'id': 'email', 'creators': ['creator name', 'creator name',...]}
 async function addSub(client, req, res) {
@@ -78,11 +73,11 @@ async function addSub(client, req, res) {
 
     const email = body.id;
     const checkResult = await client.db("watchalldata").collection("usersubdata").findOne({ 'id': email });
-    
+
     if (!checkResult || checkResult.creators.includes(body.creator_id)) {
         return 0;
     }
-    
+
     const result = await client.db("watchalldata").collection("usersubdata").updateOne({ 'id': email }, { '$push': { 'creators': body.creator_id } });
 
     if (!result) {
@@ -91,8 +86,6 @@ async function addSub(client, req, res) {
 
     return result;
 }
-// TODO: 
-// DONE
 async function removeSub(client, req, res) {
     const body = req.body;
 
@@ -139,7 +132,7 @@ async function addCreate(client, req, res) {
 // DONE
 async function getUser(client, req, res) {
     const email = req.params.id;
-    const checkResult = await client.db("watchalldata").collection("userdata").findOne({'id': email});
+    const checkResult = await client.db("watchalldata").collection("userdata").findOne({ 'id': email });
 
     if (!checkResult) {
         return 0;
@@ -165,7 +158,7 @@ async function getSubs(client, req, res) {
 }
 // TODO:
 async function getHist(client, req, res) {
-    
+
 }
 
 module.exports = {

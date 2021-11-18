@@ -41,9 +41,9 @@
       </ul>
       <form class="mx-2 my-auto d-inline w-100">
         <div class="input-group">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" id="search-input">
           <span class="input-group-append">
-            <button class="btn btn-secondary" type="button">Search</button>
+            <button class="btn btn-secondary" type="button" id="search">Search</button>
           </span>
         </div>
       </form>
@@ -64,61 +64,6 @@
   <div class="d-flex justify-content-center" id="search-pane">
     <!-- https://getbootstrap.com/docs/5.0/components/card/#horizontal -->
     <div class="row-cols-1" id="search-cards">
-
-      <!-- 
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="imgs/hist1.jpeg" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Daniel Narodistky</h5>
-                <p class="card-text">Twitch [Chess]</p>
-                <p class="card-text"><small class="text-muted">Live now</small></p>
-                <a href="#" class="btn btn-primary">Watch now</a>
-                <a href="#" class="btn btn-success">Subscribe</a>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="imgs/hikaru.jpeg" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">GM Hikaru</h5>
-                <p class="card-text">Twitch [Chess]</p>
-                <p class="card-text"><small class="text-muted">Offline now</small></p>
-                <a href="#" class="btn btn-danger">unsubscribe</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="imgs/youngelo.jpeg" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Young Elo</h5>
-                <p class="card-text">Youtube [Chess, Music]</p>
-                <p class="card-text"><small class="text-muted">New video available</small></p>
-                <a href="#" class="btn btn-primary">Watch now</a>
-                <a href="#" class="btn btn-danger">unsubscribe</a>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-
     </div>
   </div>
 
@@ -130,6 +75,12 @@
     document.getElementById("logout").onclick = function () {
       alert("You have been logged out");
       window.localStorage.clear();
+    }
+
+    document.getElementById("search").onclick = function () {
+      const query = document.getElementById("search-input").value;
+      location.href = `./results#${query}`;
+      location.reload();
     }
   </script>
   <script src="search.js"></script>
