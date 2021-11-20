@@ -117,17 +117,30 @@ async function clearHist(client, req, res) {
 
 // TODO:
 // Old schema (creator_data.json): { 'creator name': { 'data': [{ 'platform': 'platform name', 'url': 'url'},...] } }
-// New schema (creatordata collection): { 'id': 'creator name', 'data': [{ 'platform': 'platform name', 'url': 'url'},...] }
+// New schema (creatordata collection): { 'name': 'creator name', 'id': 'creator id', 'data': [{ 'platform': 'platform name', 'url': 'url'},...], 'thumbnail': 'thumbnail url' }
 async function getCreator(client, req, res) {
 
 }
 // TODO:
 async function getAllCreator(client, req, res) {
-
+    
 }
 // TODO (this is for addCreator in handle_reqs.js):
 async function addCreate(client, req, res) {
+    const body = req.body;
 
+    const name = req.name;
+    const id = body.creator_id;
+    const platform = body.platform;
+    const url = body.url;
+    const thumbnail = body.thumbnail
+
+    const obj = {
+        name: name,
+        id: id,
+        data: Array({platform: platform, url: url}),
+        thumbnail: thumbnail
+    };
 }
 // DONE
 async function getUser(client, req, res) {

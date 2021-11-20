@@ -129,6 +129,7 @@ function clearWatchHist(req, res) {
 }
 
 // TODO: Update this to use the mongoserver.js function 'addCreate'
+// Now it takes a creator name, creator id, platform, url, AND thumbnail url ('thumbnail')
 function addCreator(req, res) {
     const creator_data = getDataBase('creator_data');
     const body = req.body;
