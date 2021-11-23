@@ -210,8 +210,6 @@ module.exports = {
     updateHist,
     clearHist,
     addCreate,
-    getCreator,
-    getAllCreator,
     getUser,
     getSubs,
     getHist
