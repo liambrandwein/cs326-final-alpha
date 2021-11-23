@@ -25,9 +25,17 @@ function shuffle(array) {
 
 
 
-function subscribe(i, data) {
+async function subscribe(i, data) {
   // TODO: see function unsubscribe in sub.js for reference
   console.log('subscribing to channel_name:', data[i].channel_name);
+  const url = '/addusersub'
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({ id: window.localStorage.getItem('username'), creator_id: data[i].channel_name})
+  });
 }
 
 function pageLoad() {
