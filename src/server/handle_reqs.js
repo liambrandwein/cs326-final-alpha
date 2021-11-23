@@ -55,6 +55,7 @@ async function createAccount(req, res) {
         });
     }
     else {
+
         res.status(200).send({
             status: 'success',
             msg: 'create account success'

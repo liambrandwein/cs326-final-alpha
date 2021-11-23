@@ -44,8 +44,8 @@ async function run(mQuery, req, res) {
         return result
     }
 }
-// Remember: must pass function names to the run function mQuery parameter
 
+// Remember: must pass function names to the run function mQuery parameter
 // Old schema (user_data.json): { 'email': 'password' }
 // New schema (userdata collection): { 'id': 'email', 'password': 'password' }
 async function createAcc(client, req, res) {
@@ -61,7 +61,12 @@ async function createAcc(client, req, res) {
     const obj = {};
     obj['id'] = email;
     obj['password'] = pass;
+    // userdata
     const result = await client.db("watchalldata").collection("userdata").insertOne(obj);
+    // usersubdata
+
+
+
 
     return result;
 }
@@ -86,6 +91,7 @@ async function addSub(client, req, res) {
 
     return result;
 }
+
 async function removeSub(client, req, res) {
     const body = req.body;
 
