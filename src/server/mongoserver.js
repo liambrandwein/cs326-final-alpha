@@ -107,24 +107,49 @@ async function removeSub(client, req, res) {
 // Old schema (user_watch_hist_data.json): { 'email': ['creator name', 'creator name',...]}
 // New schema (userwatchhistdata collection, very similar to usersubdata): { 'id': 'email', 'creators': ['creator name', 'creator name',...]}
 async function updateHist(client, req, res) {
+    const body = req.body;
 
+    const email = body.id;
+    const checkResult = await client.db("watchalldata").collection("userwatchhistdata").findOne({ 'id': email });
+
+    if (!checkResult || checkResult.creators.includes(body.creator_id)) {
+        return 0;
+    }
+
+    const result = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$push': { 'creators': body.creator_id } });
+
+    if (!result) {
+        return 0;
+    }
+
+    return result;
 }
 // TODO:
 async function clearHist(client, req, res) {
+    const body = req.body;
+    const email = body.id;
+    const checkResult = await client.db("watchalldata").collection("userwatchhistdata").findOne({ 'id': email });
 
+    if (!checkResult || checkResult.creators.includes(body.creator_id)) {
+        // already not in history database
+        return 0;
+    }
+    // set history array to empty
+    const result = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$set': { 'creators': [] } });
+    return result;
 }
 // API GETTERS
 
-// TODO:
+// NOTE: deprecated. We're not creating creator_data.json anymore.
 // Old schema (creator_data.json): { 'creator name': { 'data': [{ 'platform': 'platform name', 'url': 'url'},...] } }
 // New schema (creatordata collection): { 'name': 'creator name', 'id': 'creator id', 'data': [{ 'platform': 'platform name', 'url': 'url'},...], 'thumbnail': 'thumbnail url' }
-async function getCreator(client, req, res) {
+// async function getCreator(client, req, res) {
 
-}
-// TODO:
-async function getAllCreator(client, req, res) {
-    
-}
+// }
+// // TODO:
+// async function getAllCreator(client, req, res) {
+
+// }
 // TODO (this is for addCreator in handle_reqs.js):
 async function addCreate(client, req, res) {
     const body = req.body;
@@ -138,7 +163,7 @@ async function addCreate(client, req, res) {
     const obj = {
         name: name,
         id: id,
-        data: Array({platform: platform, url: url}),
+        data: Array({ platform: platform, url: url }),
         thumbnail: thumbnail
     };
 }
@@ -156,8 +181,7 @@ async function getUser(client, req, res) {
     };
     return obj
 }
-// TODO:
-// DONE
+
 async function getSubs(client, req, res) {
     const params = req.params;
     const email = params.id
@@ -171,7 +195,11 @@ async function getSubs(client, req, res) {
 }
 // TODO:
 async function getHist(client, req, res) {
-
+    const body = req.body;
+    const email = body.id;
+    // set history array to empty
+    const results = await client.db('watchalldata').collection("userwatchhistdata").findOne({ 'id': email }).toArray();
+    return results;
 }
 
 module.exports = {
