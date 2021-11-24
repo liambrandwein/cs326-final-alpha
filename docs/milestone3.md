@@ -43,6 +43,9 @@ For example,
       > 0: String // the id of the channel
 }
 ```
+For example, 
+![data](./images/usersubdata.png)
+
 ### userwatchhistdata
 ```
 {
@@ -52,6 +55,8 @@ For example,
       > 0: String // the id of the channel
 }
 ```
+For example,
+![data](./images/userwatchhistdata.png)
 ## Demo
 
 
