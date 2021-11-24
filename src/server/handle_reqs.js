@@ -98,21 +98,21 @@ async function removeUserSub(req, res) {
     }
 }
 
-// TODO: Update this to use the mongoserver.js function 'updateHist'
-function updateWatchHist(req, res) {
-    const user_watch_hist_data = getDataBase('user_watch_hist_data');
-    const body = req.body;
-    if (body.id in user_watch_hist_data) {
-        user_watch_hist_data[body.id].push(body.creator_id);
+// DONE
+// Update this to use the mongoserver.js function 'updateHist'
+async function updateWatchHist(req, res) {
+    const result = await mongoserver.run(mongoserver.updateHist, req, res);
+    if (result === 0) {
+        res.status(400).send({
+            status: 'failure',
+            msg: 'creator already in watch history'
+        });
+    } else {
+        res.status(200).send({
+            status: 'success',
+            msg: 'update watch hist success'
+        });
     }
-    else {
-        user_watch_hist_data[body.id] = Array(body.creator_id);
-    }
-    fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
-    res.status(200).send({
-        status: 'success',
-        msg: 'update watch hist success'
-    });
 }
 
 // TODO: Update this to use the mongoserver.js function 'clearHist'

@@ -10,8 +10,20 @@ async function unsubscribe(creator_id) {
     },
     body: JSON.stringify({ creator_id: creator_id, user_id: window.localStorage.getItem('username') })
   });
-  console.log(response)
+  console.log(response);
   window.location.reload();
+}
+
+async function watch(creator_id) {
+  const url = '/updatewatchhist'
+  const response = await fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({ creator_id: creator_id, id: window.localStorage.getItem('username') })
+  });
+  console.log(response);
 }
 
 async function loadSubs() {
@@ -47,7 +59,7 @@ async function loadSubs() {
               <div class="card-body">
                 <h5 class="card-title">${creator_id}</h5>
                 <p class="card-text">${platform}</p>
-                <a href="${platform_url}" class="btn btn-primary">Watch now</a>
+                <a id="watch-${creator_id}" href="${platform_url}" class="btn btn-primary">Watch now</a>
                 <a id="unsub-${creator_id}" class="btn btn-danger">unsubscribe</a>
               </div>
             </div>
@@ -55,6 +67,7 @@ async function loadSubs() {
         </div>
         `;
     document.getElementById('manager-cards').insertAdjacentHTML('beforeend', div);
+    document.getElementById(`watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
     document.getElementById(`unsub-${creator_id}`).addEventListener('click', () => unsubscribe(creator_id));
   }
 }
