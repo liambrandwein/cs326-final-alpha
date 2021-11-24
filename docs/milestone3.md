@@ -22,6 +22,8 @@ We have 4 data collections.
 For example,
 ![data](./images/creatordata.png)
 
+
+
 ### userdata
 
 ### usersubdata
@@ -38,6 +40,9 @@ For example,
     <source src="./images/demo_milestone3.mp4" type="video/mp4">
   </video>
 </figure>
+
+
+![Alt Text](./images/demo_milestone3.gif)
 
 
 ## Division of Labor
