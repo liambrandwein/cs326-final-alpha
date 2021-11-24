@@ -1,4 +1,5 @@
 
+import { watch } from './utils.js';
 async function unsubscribe(creator_id) {
   console.log("remove creator_id");
   const url = '/removeusersub';
@@ -14,17 +15,6 @@ async function unsubscribe(creator_id) {
   window.location.reload();
 }
 
-async function watch(creator_id) {
-  const url = '/updatewatchhist'
-  const response = await fetch(url, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({ creator_id: creator_id, id: window.localStorage.getItem('username') })
-  });
-  console.log(response);
-}
 
 async function loadSubs() {
   const email = window.localStorage.getItem('username');
@@ -37,6 +27,7 @@ async function loadSubs() {
   // display the subs
   for (let i = 0; i < subs.length; i++) {
     const creator_id = subs[i];
+    console.log("sub creator_id" + creator_id);
     // query creator's data
     const creator_url = '/getcreatordata/' + creator_id;
     console.log(creator_url);
@@ -59,7 +50,7 @@ async function loadSubs() {
               <div class="card-body">
                 <h5 class="card-title">${creator_id}</h5>
                 <p class="card-text">${platform}</p>
-                <a id="watch-${creator_id}" href="${platform_url}" class="btn btn-primary">Watch now</a>
+                <a id="watch-${creator_id}" class="btn btn-primary">Watch now</a>
                 <a id="unsub-${creator_id}" class="btn btn-danger">unsubscribe</a>
               </div>
             </div>

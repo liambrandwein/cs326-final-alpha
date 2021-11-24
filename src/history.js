@@ -5,41 +5,41 @@ async function loadHistory() {
     const response = await fetch(url);
     const data = await response.json();
     const history = data.history;
+    console.log("loadHist data");
+    console.log(data);
 
     // display the history
     for (let i = 0; i < history.length; i++) {
-        const creator_id = history[i]['creator_id'];
+        const creator_id = history[i];
+        console.log("creator_id " + creator_id);
         // query creator's data
         const creator_url = '/getcreatordata/' + creator_id;
+        console.log(creator_url);
         const creator_response = await fetch(creator_url);
         const creator_data = await creator_response.json();
-
-        if (i == 0) {
-            console.log(creator_data)
-            console.log(creator_data['profile_pic']);
-        }
-        const pic = creator_data.profile_pic;
-        const content_tag = creator_data.content_tag;
-        const platform = history[i]['platform'];
+        console.log(creator_data);
+        const pic = creator_data.thumbnail;
         const last_watch = history[i]['last_watch'];
+        const platform = creator_data['data'][0].platform;
+        const platform_url = creator_data['data'][0].url;
 
-        const div = 
-        `<div class="card mb-3" style="max-width: 540px;">
+        const div =
+            `<div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
         <div class="col-md-4">
-            <img src="imgs/${pic}" class="img-fluid rounded-start" alt="...">
+            <img src="${pic}" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
             <div class="card-body">
             <h5 class="card-title"> ${creator_id}</h5>
-            <p class="card-text">${platform} ${content_tag}</p>
-            <p class="card-text"><small class="text-muted">Watched ${last_watch}</small></p>
+            <p class="card-text">${platform}</p>
+            <p class="card-text"><small class="text-muted">Last watched ${last_watch}</small></p>
             </div>
         </div>
         </div>
     </div>`;
-       document.getElementById('history-cards').insertAdjacentHTML( 'beforeend', div);
-        }
+        document.getElementById('history-cards').insertAdjacentHTML('beforeend', div);
+    }
 
 }
 
@@ -51,7 +51,7 @@ async function clearHistory() {
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify({ id: user_id})
+        body: JSON.stringify({ id: user_id })
     });
     // reload the page
     window.location.reload();

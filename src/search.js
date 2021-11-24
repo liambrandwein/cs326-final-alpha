@@ -31,21 +31,22 @@ async function subscribe(i, data) {
   const res = await fetch('/addcreator', {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+      'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({ 
-      name: data[i].channel_name, 
-      id: data[i].channel_name, 
-      platform: data[i].platform, 
-      url: data[i].url, 
-      thumbnail: data[i].profile_pic})
+    body: JSON.stringify({
+      name: data[i].channel_name,
+      id: data[i].channel_name,
+      platform: data[i].platform,
+      url: data[i].url,
+      thumbnail: data[i].profile_pic
+    })
   });
   const response = await fetch('/addusersub', {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+      'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({ id: window.localStorage.getItem('username'), creator_id: data[i].channel_name})
+    body: JSON.stringify({ id: window.localStorage.getItem('username'), creator_id: data[i].channel_name })
   });
 }
 
@@ -86,7 +87,7 @@ async function retrieveResults(query) {
   for (let i = 0; i < results.length; i++) {
     const elt = results[i];
     const profile_pic = elt.profile_pic;
-    const name = elt.name;
+    const channel_name = elt.channel_name;
     const platform = elt.platform;
     const url = elt.url;
     let div = `
@@ -97,10 +98,10 @@ async function retrieveResults(query) {
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">${name}</h5>
+                <h5 class="card-title">${channel_name}</h5>
                 <p class="card-text">${platform}</p>
                 <p class="card-text"><small class="text-muted">Live now</small></p>
-                <a href="${url}" class="btn btn-primary">Watch now</a>
+                <a id="watch-${channel_name}" href="${url}" class="btn btn-primary">Watch now</a>
                 <a class="btn btn-success" id="sub-${i}">Subscribe</a>
               </div>
             </div>
@@ -109,6 +110,7 @@ async function retrieveResults(query) {
     `;
     document.getElementById('search-cards').insertAdjacentHTML('beforeend', div);
     document.getElementById(`sub-${i}`).addEventListener('click', () => subscribe(i, results));
+    document.getElementById(`watch-${channel_name}`).addEventListener('click', () => watch(channel_name));
   }
 
 

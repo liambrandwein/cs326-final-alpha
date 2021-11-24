@@ -116,17 +116,24 @@ async function updateWatchHist(req, res) {
 }
 
 // TODO: Update this to use the mongoserver.js function 'clearHist'
-function clearWatchHist(req, res) {
-    const user_watch_hist_data = getDataBase('user_watch_hist_data');
-    const body = req.body;
-    if (body.id in user_watch_hist_data) {
-        user_watch_hist_data[body.id] = [];
-    }
-    fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
+async function clearWatchHist(req, res) {
+    // const user_watch_hist_data = getDataBase('user_watch_hist_data');
+    // const body = req.body;
+    // if (body.id in user_watch_hist_data) {
+    //     user_watch_hist_data[body.id] = [];
+    // }
+    // fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
+    // res.status(200).send({
+    //     status: 'success',
+    //     msg: 'clear watch hist success'
+    // });
+
+    const result = await mongoserver.run(mongoserver.clearHist, req, res);
     res.status(200).send({
         status: 'success',
         msg: 'clear watch hist success'
     });
+
 }
 
 
@@ -151,7 +158,7 @@ async function addCreator(req, res) {
 // API GETTERS (ALL TODO:)
 async function getCreatorData(req, res) {
     const result = await mongoserver.run(mongoserver.getCreator, req, res);
-    if (result === 0) { 
+    if (result === 0) {
         res.status(404).send({
             Error: 'Creator not found.'
         });
@@ -205,14 +212,16 @@ async function getUserSubData(req, res) {
 
 }
 
-function getUserWatchHist(req, res) {
-    const user_watch_hist_data = getDataBase('user_watch_hist_data');
-    const body = req.body;
+async function getUserWatchHist(req, res) {
+    //const user_watch_hist_data = getDataBase('user_watch_hist_data');
+    const user_watch_hist_data = await mongoserver.run(mongoserver.getHist, req, res);
+    console.log("userWatchHist");
+    console.log(user_watch_hist_data);
     const params = req.params;
-    if (params.id in user_watch_hist_data) {
+    if (user_watch_hist_data) {
         res.send({
             user_id: params.id,
-            history: user_watch_hist_data[params.id]
+            history: user_watch_hist_data.creators,
         });
     } else {
         res.send({

@@ -169,7 +169,7 @@ async function addCreate(client, req, res) {
     const name = body.name;
     const id = body.id;
 
-    const checkResult = await client.db("watchalldata").collection("creatordata").findOne({'id': id});
+    const checkResult = await client.db("watchalldata").collection("creatordata").findOne({ 'id': id });
 
     if (checkResult) {
         return 0;
@@ -195,7 +195,7 @@ async function addCreate(client, req, res) {
 async function getCreator(client, req, res) {
     const id = req.params.id;
     console.log(id);
-    const checkResult = await client.db("watchalldata").collection("creatordata").findOne({'id': id});
+    const checkResult = await client.db("watchalldata").collection("creatordata").findOne({ 'id': id });
 
     if (!checkResult) {
         return 0;
@@ -231,10 +231,15 @@ async function getSubs(client, req, res) {
 }
 // TODO:
 async function getHist(client, req, res) {
-    const body = req.body;
-    const email = body.id;
+    const params = req.params;
+    const email = params.id
+    console.log("email:");
+    console.log(email);
     // set history array to empty
-    const results = await client.db('watchalldata').collection("userwatchhistdata").findOne({ 'id': email }).toArray();
+    const results = await client.db('watchalldata').collection("userwatchhistdata").findOne({ 'id': email });
+    if (!results) {
+        return 0;
+    }
     return results;
 }
 
