@@ -35,6 +35,7 @@ async function loadSubs() {
     const pic = creator_data.thumbnail;
     //const content_tag = creator_data.content_tag;
     const platform = creator_data['data'][0].platform;
+    const platform_url = creator_data['data'][0].url;
     const div =
       `
         <div class="card mb-3" style="max-width: 540px;">
@@ -46,6 +47,7 @@ async function loadSubs() {
               <div class="card-body">
                 <h5 class="card-title">${creator_id}</h5>
                 <p class="card-text">${platform}</p>
+                <a href="${platform_url}" class="btn btn-primary">Watch now</a>
                 <a id="unsub-${creator_id}" class="btn btn-danger">unsubscribe</a>
               </div>
             </div>
