@@ -1,4 +1,5 @@
 export async function watch(creator_id) {
+    console.log("watching " + creator_id);
     const url = '/updatewatchhist'
     const response = await fetch(url, {
         method: 'PATCH',

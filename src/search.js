@@ -1,3 +1,4 @@
+import { watch } from './utils.js';
 console.log("search my boy!")
 
 const TWITCH_RESULT_LIMIT = 10;
@@ -28,19 +29,7 @@ function shuffle(array) {
 async function subscribe(i, data) {
   // TODO: see function unsubscribe in sub.js for reference
   console.log('subscribing to channel_name:', data[i].channel_name);
-  const res = await fetch('/addcreator', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      name: data[i].channel_name,
-      id: data[i].channel_name,
-      platform: data[i].platform,
-      url: data[i].url,
-      thumbnail: data[i].profile_pic
-    })
-  });
+
   const response = await fetch('/addusersub', {
     method: 'POST',
     headers: {
@@ -90,6 +79,22 @@ async function retrieveResults(query) {
     const channel_name = elt.channel_name;
     const platform = elt.platform;
     const url = elt.url;
+
+    const res = await fetch('/addcreator', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        name: results[i].channel_name,
+        id: results[i].channel_name,
+        platform: results[i].platform,
+        url: results[i].url,
+        thumbnail: results[i].profile_pic
+      })
+    });
+
+
     let div = `
     <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
@@ -101,7 +106,7 @@ async function retrieveResults(query) {
                 <h5 class="card-title">${channel_name}</h5>
                 <p class="card-text">${platform}</p>
                 <p class="card-text"><small class="text-muted">Live now</small></p>
-                <a id="watch-${channel_name}" href="${url}" class="btn btn-primary">Watch now</a>
+                <a id="search-watch-${channel_name}" href="${url}" class="btn btn-primary">Watch now</a>
                 <a class="btn btn-success" id="sub-${i}">Subscribe</a>
               </div>
             </div>
@@ -110,7 +115,7 @@ async function retrieveResults(query) {
     `;
     document.getElementById('search-cards').insertAdjacentHTML('beforeend', div);
     document.getElementById(`sub-${i}`).addEventListener('click', () => subscribe(i, results));
-    document.getElementById(`watch-${channel_name}`).addEventListener('click', () => watch(channel_name));
+    document.getElementById(`search-watch-${channel_name}`).addEventListener('click', () => watch(channel_name));
   }
 
 

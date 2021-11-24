@@ -50,7 +50,7 @@ async function loadSubs() {
               <div class="card-body">
                 <h5 class="card-title">${creator_id}</h5>
                 <p class="card-text">${platform}</p>
-                <a id="watch-${creator_id}" class="btn btn-primary">Watch now</a>
+                <a id="sub-watch-${creator_id}" href="${platform_url}" class="btn btn-primary">Watch now</a>
                 <a id="unsub-${creator_id}" class="btn btn-danger">unsubscribe</a>
               </div>
             </div>
@@ -58,7 +58,10 @@ async function loadSubs() {
         </div>
         `;
     document.getElementById('manager-cards').insertAdjacentHTML('beforeend', div);
-    document.getElementById(`watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
+    console.log("watch " + creator_id);
+    console.log(document.getElementById(`sub-watch-${creator_id}`));
+    console.log(div);
+    document.getElementById(`sub-watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
     document.getElementById(`unsub-${creator_id}`).addEventListener('click', () => unsubscribe(creator_id));
   }
 }
