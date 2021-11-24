@@ -221,18 +221,18 @@ function getUserWatchHist(req, res) {
     }
 }
 
-function getCreatorData(req, res) {
-    const creator_data = getDataBase('creator_data');
-    const body = req.body;
-    const params = req.params;
-    if (params.id in creator_data) {
-        res.send(creator_data[params.id]);
-    } else {
-        res.send({
-            Error: 'Creator not found.'
-        });
-    }
-}
+// function getCreatorData(req, res) {
+//     const creator_data = getDataBase('creator_data');
+//     const body = req.body;
+//     const params = req.params;
+//     if (params.id in creator_data) {
+//         res.send(creator_data[params.id]);
+//     } else {
+//         res.send({
+//             Error: 'Creator not found.'
+//         });
+//     }
+// }
 
 function getAllCreatorData(req, res) {
     const creator_data = getDataBase('creator_data');
