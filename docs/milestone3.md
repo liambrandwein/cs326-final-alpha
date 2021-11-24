@@ -1,0 +1,46 @@
+# CS 326 Project
+# Milestone 3
+
+## Database
+We have 4 data collections.
+
+![data](./images/data.png)
+
+### creatordata
+```
+{
+	_id: <ObjectId1>,
+	name: String,  // The name of the channel
+	id: String,  // The id of the channel, same as name for now
+    data: Array,
+        > 0: Object
+            platform: String, // twitch or youtube
+            ulr: String, // url of the video/channel
+    thumbnail: String, // web url to the channel's thumbnail
+}
+```
+For example,
+![data](./images/creatordata.png)
+
+### userdata
+
+### usersubdata
+
+### userwatchhistdata
+
+
+
+## Demo
+
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true">
+    <source src="./images/demo_milestone3.mp4" type="video/mp4">
+  </video>
+</figure>
+
+
+## Division of Labor
+
+- Liam Brandwein - mongoDB, subscribe functionalities.
+- Long Le - mongoDB, history functionalities.
