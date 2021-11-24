@@ -129,39 +129,38 @@ function clearWatchHist(req, res) {
     });
 }
 
-// TODO: Update this to use the mongoserver.js function 'addCreate'
+
+// DONE
 // Now it takes a creator name, creator id, platform, url, AND thumbnail url ('thumbnail')
-function addCreator(req, res) {
-    const creator_data = getDataBase('creator_data');
-    const body = req.body;
-    if (body.creator_id in creator_data) {
-        creator_data[body.creator_id].push({ 'platform': body.platform, 'url': body.url });
+async function addCreator(req, res) {
+    const result = await mongoserver.run(mongoserver.addCreate, req, res);
+
+    if (result === 0) {
+        res.status(400).send({
+            status: 'fail',
+            msg: 'creator already exists'
+        });
+    } else {
+        res.status(200).send({
+            status: 'success',
+            msg: 'add creator success'
+        });
     }
-    else {
-        creator_data[body.creator_id] = Array({ 'platform': body.platform, 'url': body.url });
-    }
-    fs.writeFileSync('src/server/data/creator_data.json', JSON.stringify(creator_data));
-    res.status(200).send({
-        status: 'success',
-        msg: 'add creator success'
-    });
 }
 
 // API GETTERS (ALL TODO:)
-function getCreatorData(req, res) {
-    const creator_data = getDataBase('creator_data');
-    const body = req.body;
-    const params = req.params;
-    if (params.id in creator_data) {
-        res.status(200).send({
-            user_id: params.id,
-            platform: creator_data['platform'],
-            content_tag: creator_data['content_tag'],
-            profile_pic: creator_data['pic'],
-        });
-    } else {
+async function getCreatorData(req, res) {
+    const result = await mongoserver.run(mongoserver.getCreator, req, res);
+    if (result === 0) { 
         res.status(404).send({
             Error: 'Creator not found.'
+        });
+    } else {
+        res.status(200).send({
+            name: result['name'],
+            id: result['id'],
+            data: result['data'],
+            thumbnail: result['thumbnail']
         });
     }
 }

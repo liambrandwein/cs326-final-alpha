@@ -27,17 +27,18 @@ async function loadSubs() {
         const creator_id = subs[i];
          // query creator's data
          const creator_url = '/getcreatordata/' + creator_id;
+         console.log(creator_url);
          const creator_response = await fetch(creator_url);
          const creator_data = await creator_response.json();
         console.log(creator_data);
-         const pic = creator_data.profile_pic;
+         const pic = creator_data.thumbnail;
          const content_tag = creator_data.content_tag;
         const div = 
         `
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="imgs/${pic}" class="img-fluid rounded-start" alt="...">
+              <img src="${pic}" class="img-fluid rounded-start" alt="...">
             </div>
             <div class="col-md-8">
               <div class="card-body">

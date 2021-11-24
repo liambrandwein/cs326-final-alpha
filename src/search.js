@@ -28,8 +28,19 @@ function shuffle(array) {
 async function subscribe(i, data) {
   // TODO: see function unsubscribe in sub.js for reference
   console.log('subscribing to channel_name:', data[i].channel_name);
-  const url = '/addusersub'
-  const response = await fetch(url, {
+  const res = await fetch('/addcreator', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({ 
+      name: data[i].channel_name, 
+      id: data[i].channel_name, 
+      platform: data[i].platform, 
+      url: data[i].url, 
+      thumbnail: data[i].profile_pic})
+  });
+  const response = await fetch('/addusersub', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json;charset=utf-8'

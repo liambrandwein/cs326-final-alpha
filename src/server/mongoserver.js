@@ -160,8 +160,15 @@ async function clearHist(client, req, res) {
 async function addCreate(client, req, res) {
     const body = req.body;
 
-    const name = req.name;
-    const id = body.creator_id;
+    const name = body.name;
+    const id = body.id;
+
+    const checkResult = await client.db("watchalldata").collection("creatordata").findOne({'id': id});
+
+    if (checkResult) {
+        return 0;
+    }
+
     const platform = body.platform;
     const url = body.url;
     const thumbnail = body.thumbnail
@@ -172,6 +179,23 @@ async function addCreate(client, req, res) {
         data: Array({ platform: platform, url: url }),
         thumbnail: thumbnail
     };
+
+    const result = await client.db("watchalldata").collection("creatordata").insertOne(obj);
+
+    return result;
+}
+// DONE
+// TODO: Update get creator function with new schema
+async function getCreator(client, req, res) {
+    const id = req.params.id;
+    console.log(id);
+    const checkResult = await client.db("watchalldata").collection("creatordata").findOne({'id': id});
+
+    if (!checkResult) {
+        return 0;
+    }
+
+    return checkResult;
 }
 // DONE
 async function getUser(client, req, res) {
@@ -216,6 +240,7 @@ module.exports = {
     updateHist,
     clearHist,
     addCreate,
+    getCreator,
     getUser,
     getSubs,
     getHist
