@@ -64,9 +64,15 @@ async function createAcc(client, req, res) {
     // userdata
     const result = await client.db("watchalldata").collection("userdata").insertOne(obj);
     // usersubdata
-
-
-
+    const obj2 = {};
+    obj2['id'] = email;
+    obj2['creators'] = [];
+    const result2 = await client.db("watchalldata").collection("usersubdata").insertOne(obj2);
+    // userwatchhist
+    const obj3 = {};
+    obj3['id'] = email;
+    obj3['creators'] = [];
+    const result3 = await client.db("watchalldata").collection("userwatchhistdata").insertOne(obj3);
 
     return result;
 }
