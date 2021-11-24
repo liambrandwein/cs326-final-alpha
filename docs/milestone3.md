@@ -25,13 +25,33 @@ For example,
 
 
 ### userdata
-
+```
+{
+	_id: <ObjectId1>,
+	id: String,  // The email of the account
+    password: String // Salted + hashed password
+}
+```
+For example,
+![data](./images/userdata.png)
 ### usersubdata
-
+```
+{
+	_id: <ObjectId1>,
+	id: String,  // The email of the account
+    creators: Array,
+      > 0: String // the id of the channel
+}
+```
 ### userwatchhistdata
-
-
-
+```
+{
+	_id: <ObjectId1>,
+	id: String,  // The email of the account
+    creators: Array,
+      > 0: String // the id of the channel
+}
+```
 ## Demo
 
 
