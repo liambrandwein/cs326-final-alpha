@@ -3,6 +3,9 @@
 
 App: https://cs-326-alpha.herokuapp.com/
 
+## NOTE:
+The homepage recommendation is not currently implemented. It'll be implemented in the final milestone.
+
 ## Database
 We have 4 data collections.
 
