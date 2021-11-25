@@ -1,6 +1,8 @@
 # CS 326 Project
 # Milestone 3
 
+App: https://cs-326-alpha.herokuapp.com/
+
 ## Database
 We have 4 data collections.
 
