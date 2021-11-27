@@ -1,4 +1,3 @@
-
 async function loadHistory() {
     const email = window.localStorage.getItem('username');
     const url = '/getuserwatchhist/' + email;

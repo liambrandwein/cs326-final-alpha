@@ -1,0 +1,41 @@
+/* https://mdbootstrap.com/docs/standard/tools/design/gradients/ */
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to left, rgba(106, 17, 203, 0.9), rgba(37, 117, 252, 0.9));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to left, rgba(106, 17, 203, 0.9), rgba(37, 117, 252, 0.9))
+  }
+
+  .gradient-custom-2{
+    /* fallback for old browsers */
+    background: #a6c0fe;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(166, 192, 254, 1), rgba(246, 128, 132, 1));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(166, 192, 254, 1), rgba(246, 128, 132, 1))
+  } 
+
+
+  .navbar-brand
+    {
+      font-size: 40px;
+    }
+
+  .nav-link
+  {
+    font-size: 20px;
+  }
+
+  .btn
+  {
+    font-size: 20px;
+  }
+
+
