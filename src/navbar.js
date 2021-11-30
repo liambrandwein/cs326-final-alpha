@@ -1,5 +1,3 @@
-console.log("NavBar!!")
-console.log(document.getElementById("logout"))
 if (localStorage.getItem("username") === null) {
     alert("You are not signed on")
     location.href = "./signin"
