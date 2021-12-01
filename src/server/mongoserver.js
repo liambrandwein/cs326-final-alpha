@@ -2,7 +2,7 @@
 // DELETE LATER ^^^^^^
 const { MongoClient } = require("mongodb");
 const bcrypt = require("bcrypt");
-
+const validator = require("email-validator");
 
 
 // Function to connect to the server (mQuery is the function passed to this
@@ -52,6 +52,10 @@ async function createAcc(client, req, res) {
     const body = req.body;
 
     const email = body.id;
+    if (!validator.validate(email)) {
+        return 0;
+    }
+
     const checkResult = await client.db("watchalldata").collection("userdata").findOne({ 'id': email });
     // Checks if the email exists
     if (checkResult) {
