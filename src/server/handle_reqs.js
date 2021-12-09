@@ -6,45 +6,45 @@ let bcrypt = require('bcrypt');
 let twitch = require('./external/twitch_get')
 let youtube = require('./external/youtube_get')
 // DELETE AFTER MIGRATION TO MONGODB:
-function getDataBase(data_type) {
-    const supported_data_types = ['user_data', 'creator_data',
-        'user_watch_hist_data', 'user_sub_data'];
-    if (!data_type in supported_data_types) {
-        console.alert("BUG: data not supported");
-        return {};
-    }
-    const filename = 'src/server/data/' + data_type + '.json';
-    // Add if file exists
-    const str = fs.readFileSync(filename, { encoding: 'utf8' });
-    return JSON.parse(str);
-}
+// function getDataBase(data_type) {
+//     const supported_data_types = ['user_data', 'creator_data',
+//         'user_watch_hist_data', 'user_sub_data'];
+//     if (!data_type in supported_data_types) {
+//         console.alert("BUG: data not supported");
+//         return {};
+//     }
+//     const filename = 'src/server/data/' + data_type + '.json';
+//     // Add if file exists
+//     const str = fs.readFileSync(filename, { encoding: 'utf8' });
+//     return JSON.parse(str);
+// }
 // DELETE AFTER MIGRATION TO MONGODB:
 // verify if user's supplied account and password match the data in the database
-function loginAccount(req, res) {
-    const user_data = getDataBase('user_data');
-    const body = req.body;
-    if (body.id in user_data || user_data[body.id] === body.pass) {
-        res.status(200).send({
-            status: 'success',
-            id: body.id,
-            pass: body.pass,
-            msg: 'login success'
-        });
-    }
-    else {
-        res.status(400).send({
-            status: 'fail',
-            msg: 'login fail'
-        });
-    }
-}
+// function loginAccount(req, res) {
+//     const user_data = getDataBase('user_data');
+//     const body = req.body;
+//     if (body.id in user_data || user_data[body.id] === body.pass) {
+//         res.status(200).send({
+//             status: 'success',
+//             id: body.id,
+//             pass: body.pass,
+//             msg: 'login success'
+//         });
+//     }
+//     else {
+//         res.status(400).send({
+//             status: 'fail',
+//             msg: 'login fail'
+//         });
+//     }
+// }
 // DELETE AFTER MIGRATION TO MONGODB:
 // check if user's account is already in the database. 
-function checkAccountExist(req) {
-    const user_data = getDataBase('user_data');
-    const body = req.body;
-    return body.id in user_data;
-}
+// function checkAccountExist(req) {
+//     const user_data = getDataBase('user_data');
+//     const body = req.body;
+//     return body.id in user_data;
+// }
 // check if new account can be created
 async function createAccount(req, res) {
     const result = await mongoserver.run(mongoserver.createAcc, req, res);
@@ -243,10 +243,10 @@ async function getUserWatchHist(req, res) {
 //     }
 // }
 
-function getAllCreatorData(req, res) {
-    const creator_data = getDataBase('creator_data');
-    res.status(200).send(creator_data);
-}
+// function getAllCreatorData(req, res) {
+//     const creator_data = getDataBase('creator_data');
+//     res.status(200).send(creator_data);
+// }
 
 function getTwitchSearchResults(req, res) {
     console.log("getting twitch search")
@@ -291,9 +291,9 @@ function getYoutubeSearchResults(req, res) {
     );
 }
 module.exports = {
-    getDataBase,
-    loginAccount,
-    checkAccountExist,
+    // getDataBase,
+    // loginAccount,
+    // checkAccountExist,
     createAccount,
     addUserSub,
     removeUserSub,
@@ -304,7 +304,7 @@ module.exports = {
     getUserSubData,
     getUserWatchHist,
     getCreatorData,
-    getAllCreatorData,
+    // getAllCreatorData,
     getTwitchSearchResults,
     getYoutubeSearchResults
 }

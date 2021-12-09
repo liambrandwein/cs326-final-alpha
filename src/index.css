@@ -1,5 +1,6 @@
 /* https://mdbootstrap.com/docs/standard/tools/design/gradients/ */
 
+
 .gradient-custom {
     /* fallback for old browsers */
     background: #6a11cb;
@@ -39,3 +40,12 @@
   }
 
 
+  .footer
+{
+    height: 50px;
+    background-color: black;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
