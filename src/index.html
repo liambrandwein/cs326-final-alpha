@@ -19,7 +19,7 @@
 
     $(document).ready(function () {
       $("#header").load("header.html", function () {
-        console.log("Header loaded. Now loading navbar.js");
+        console.log("This is a callback function. Header loaded. Now loading navbar.js");
         $.getScript("navbar.js");
       });
       $("#footer").load("footer.html");
