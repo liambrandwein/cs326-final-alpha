@@ -1,3 +1,5 @@
+import { watch } from './utils.js';
+
 async function loadHistory() {
     const email = window.localStorage.getItem('username');
     const url = '/getuserwatchhist/' + email;
@@ -33,11 +35,13 @@ async function loadHistory() {
             <h5 class="card-title"> ${creator_id}</h5>
             <p class="card-text">${platform}</p>
             <p class="card-text"><small class="text-muted">Last watched: ${last_watch}</small></p>
+            <a id="hist-watch-${creator_id}" href="${platform_url}" class="btn btn-primary">Watch again</a>
             </div>
         </div>
         </div>
     </div>`;
         document.getElementById('history-cards').insertAdjacentHTML('beforeend', div);
+        document.getElementById(`hist-watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
     }
 
 }
