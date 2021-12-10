@@ -222,6 +222,7 @@ async function getUserWatchHist(req, res) {
         res.send({
             user_id: params.id,
             history: user_watch_hist_data.creators,
+            watch_times: user_watch_hist_data.watch_times,
         });
     } else {
         res.send({

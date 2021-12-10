@@ -76,6 +76,8 @@ async function createAcc(client, req, res) {
     const obj3 = {};
     obj3['id'] = email;
     obj3['creators'] = [];
+    obj3['watch_times'] = [];
+    console.log(obj3);
     const result3 = await client.db("watchalldata").collection("userwatchhistdata").insertOne(obj3);
 
     return result;
@@ -126,13 +128,26 @@ async function updateHist(client, req, res) {
     const body = req.body;
 
     const email = body.id;
+    const last_watch_time = body.last_watch_time;
     const checkResult = await client.db("watchalldata").collection("userwatchhistdata").findOne({ 'id': email });
 
-    if (!checkResult || checkResult.creators.includes(body.creator_id)) {
+    if (!checkResult) {
         return 0;
+    }
+    if (checkResult.creators.includes(body.creator_id)) {
+        // https://stackoverflow.com/questions/33100750/get-index-of-given-element-in-array-field-in-mongodb
+        const index = checkResult.creators.indexOf(body.creator_id);
+        const prev_watch_time = checkResult.watch_times[index];
+        // delete the previous data in userwatchhistdata so that the later insertion can overwrite it
+        await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$pull': { 'creators': body.creator_id } });
+        await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$pull': { 'watch_times': prev_watch_time } });
+
     }
 
     const result = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$push': { 'creators': body.creator_id } });
+    const result2 = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$push': { 'watch_times': last_watch_time } });
+    console.log("updateHist result: " + email + " " + body.creator_id + " " + last_watch_time);
+
 
     if (!result) {
         return 0;

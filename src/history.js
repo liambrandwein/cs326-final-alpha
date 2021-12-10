@@ -18,7 +18,7 @@ async function loadHistory() {
         const creator_data = await creator_response.json();
         console.log(creator_data);
         const pic = creator_data.thumbnail;
-        const last_watch = history[i]['last_watch'];
+        const last_watch = data.watch_times[i];
         const platform = creator_data['data'][0].platform;
         const platform_url = creator_data['data'][0].url;
 
@@ -32,7 +32,7 @@ async function loadHistory() {
             <div class="card-body">
             <h5 class="card-title"> ${creator_id}</h5>
             <p class="card-text">${platform}</p>
-            <p class="card-text"><small class="text-muted">Last watched ${last_watch}</small></p>
+            <p class="card-text"><small class="text-muted">Last watched: ${last_watch}</small></p>
             </div>
         </div>
         </div>
@@ -59,5 +59,4 @@ async function clearHistory() {
 
 loadHistory();
 const createBtn = document.getElementById('clear-history');
-
 createBtn.addEventListener('click', clearHistory);
