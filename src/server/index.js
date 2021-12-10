@@ -1,7 +1,41 @@
 const express = require('express');
 const handle = require('./handle_reqs');
+// // authentication stuff v *copied from class
+// const expressSession = require('express-session');  // for managing session state
+// const passport = require('passport');               // handles authentication
+// const LocalStrategy = require('passport-local').Strategy; // username/password strategy
+// // authentication stuff ^
 const app = express();
 const PORT = 8080;
+
+// // Session configuration
+
+// const session = {
+//     secret : process.env.SECRET || 'SECRET', // set this encryption key in Heroku config (never in GitHub)!
+//     resave : false,
+//     saveUninitialized: false
+// };
+
+// // Passport configuration
+// // TODO: fix this
+
+// const strategy = new LocalStrategy(
+//     async (username, password, done) => {
+// 	// if (!findUser(username)) {
+// 	//     // no such user
+// 	//     return done(null, false, { 'message' : 'Wrong username' });
+// 	// }
+// 	if (!validatePassword(username, password)) {
+// 	    // invalid password
+// 	    // should disable logins after N messages
+// 	    // delay return to rate-limit brute-force attacks
+// 	    await new Promise((r) => setTimeout(r, 2000)); // two second delay
+// 	    return done(null, false, { 'message' : 'Wrong password' });
+// 	}
+// 	// success!
+// 	// should create a user object here, associated with a unique identifier
+// 	return done(null, username);
+//     });
 
 app.use(express.json());
 
