@@ -50,6 +50,11 @@ Total | 50% | 50% |
 
 ## Conclusion
 
+Our team has learned a lot through this project. We have learned to develop end-to-end a functional web application with modular components. We have learned to set up authentication, users' databases, routing, and request calls. One of the most challenging parts is the authentication. 
+
+One thing that we would have liked to know before hand is that we would want to use MongoDB as the storage solution up front so that we don't have to later migrate from local storage.  
+
+In the future, we'd like to implement more data-driven recommendation system, add more content platforms, and allow users to stream or upload content on our site. 
 
 ## Rubric
 
@@ -58,6 +63,7 @@ Total | 50% | 50% |
 - Secure authentication
   - Successfully create a user through sign up
   - Successfully login a user
+  - User's passwords are salted and hashed
   - Only able to view the details of the inner pages if you are a user.
     - We acknowledge that the page will start to load the html if you are not logged in; however, no details will be displayed.
   - API/Database only accesible through the site with a logged-in user  
