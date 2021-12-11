@@ -1,4 +1,3 @@
-// If login (username) exists in localStorage, then redirect to the main page
 if (window.localStorage.getItem('username')) {
     window.location.href = './';
 }
@@ -22,7 +21,7 @@ async function validateLogin() {
         return 0;
     }
     // Store login info -- this only executes if you have an account
-    window.localStorage.setItem('username', getReturn['user_id']);
+    // window.localStorage.setItem('username', getReturn['user_id']);
 
     window.location.href = './';
 }   

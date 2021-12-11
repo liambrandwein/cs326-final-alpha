@@ -1,10 +1,25 @@
-if (localStorage.getItem("username") === null) {
-    alert("You are not signed on")
-    location.href = "./signin"
-}
-document.getElementById("logout").onclick = function () {
+// if (localStorage.getItem("username") === null) {
+//     alert("You are not signed on")
+//     location.href = "./signin"
+// }
+// const check = await fetch('/auth');
+// const checkResponse = await check.json();
+// if (checkResponse.hasOwnProperty('Error')) {
+//     alert("You are not signed on")
+//   location.href = './signin';
+// }
+document.getElementById("logout").onclick = async function() {
     alert("You have been logged out");
-    window.localStorage.clear();
+    const deleteAllCookies = () => {
+        const cookies = document.cookie.split(";");
+        for (const cookie of cookies) {
+            const eqPos = cookie.indexOf("=");
+            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+    }
+    deleteAllCookies();
+    const response = await fetch('/logout');
 }
 
 document.getElementById("search").onclick = function () {

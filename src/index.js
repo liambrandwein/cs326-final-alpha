@@ -1,12 +1,20 @@
 import { watch } from './utils.js';
 
-if (!window.localStorage.getItem('username')) {
-  window.location.href = './signin';
-}
+// Check if logged in
+
+// if (!window.localStorage.getItem('username')) {
+//   window.location.href = './signin';
+// }
 
 //function for dynamically loading creator content
 async function loadRecommendedContent() {
-  const username = window.localStorage.getItem('username');
+  const check = await fetch('/auth');
+  const checkResponse = await check.json();
+  if (checkResponse.hasOwnProperty('Error')) {
+    window.location.href = './signin';
+  }
+  // formerly used window local storage
+  const username = 'placeholder'
   const url = '/getusersubdata/' + username;
   const response = await fetch(url);
   const data = await response.json();

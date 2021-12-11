@@ -9,11 +9,10 @@ let twitch = require('./external/twitch_get');
 let youtube = require('./external/youtube_get');
 // ^ handle_reqs.js
 
-// // authentication stuff v *copied from class
-// const expressSession = require('express-session');  // for managing session state
-// const passport = require('passport');               // handles authentication
-// const LocalStrategy = require('passport-local').Strategy; // username/password strategy
-// // authentication stuff ^
+// authentication stuff v *different from class stuff
+const session = require('express-session');  // for managing session state
+const store = new session.MemoryStore();
+
 const app = express();
 const PORT = 8080;
 
@@ -37,6 +36,13 @@ async function createAccount(req, res) {
 // DONE
 // TODO: Update this to use the mongoserver.js function 'addSub'
 async function addUserSub(req, res) {
+    if (!req.session.authenticated) {
+        res.status(401).send({
+            'Error': 'Unable to verify authentication'
+        });
+        return;
+    }
+    req.body.id = req.session.user.username;
     const result = await mongoserver.run(mongoserver.addSub, req, res);
     if (result === 0) {
         res.status(400).send({
@@ -52,8 +58,16 @@ async function addUserSub(req, res) {
     }
 }
 
-// TODO: Update this to use the mongoserver.js function 'removeSub'
+// **DONE TODO: Update this to use the mongoserver.js function 'removeSub'
 async function removeUserSub(req, res) {
+    if (!req.session.authenticated) {
+        res.status(401).send({
+            'Error': 'Unable to verify authentication'
+        });
+        return;
+    }
+    req.body.user_id = req.session.user.username;
+    
     const user_sub_data = await mongoserver.run(mongoserver.removeSub, req, res);
 
     if (user_sub_data === 0) {
@@ -73,6 +87,13 @@ async function removeUserSub(req, res) {
 // DONE
 // Update this to use the mongoserver.js function 'updateHist'
 async function updateWatchHist(req, res) {
+    if (!req.session.authenticated) {
+        res.status(401).send({
+            'Error': 'Unable to verify authentication'
+        });
+        return;
+    }
+    req.body.id = req.session.user.username;
     const result = await mongoserver.run(mongoserver.updateHist, req, res);
     if (result === 0) {
         res.status(400).send({
@@ -89,17 +110,13 @@ async function updateWatchHist(req, res) {
 
 // TODO: Update this to use the mongoserver.js function 'clearHist'
 async function clearWatchHist(req, res) {
-    // const user_watch_hist_data = getDataBase('user_watch_hist_data');
-    // const body = req.body;
-    // if (body.id in user_watch_hist_data) {
-    //     user_watch_hist_data[body.id] = [];
-    // }
-    // fs.writeFileSync('src/server/data/user_watch_hist_data.json', JSON.stringify(user_watch_hist_data));
-    // res.status(200).send({
-    //     status: 'success',
-    //     msg: 'clear watch hist success'
-    // });
-
+    if (!req.session.authenticated) {
+        res.status(401).send({
+            'Error': 'Unable to verify authentication'
+        });
+        return;
+    }
+    req.body.id = req.session.user.username;
     const result = await mongoserver.run(mongoserver.clearHist, req, res);
     res.status(200).send({
         status: 'success',
@@ -112,6 +129,12 @@ async function clearWatchHist(req, res) {
 // DONE
 // Now it takes a creator name, creator id, platform, url, AND thumbnail url ('thumbnail')
 async function addCreator(req, res) {
+    if (!req.session.authenticated) {
+        res.status(401).send({
+            'Error': 'Unable to verify authentication'
+        });
+        return;
+    }
     const result = await mongoserver.run(mongoserver.addCreate, req, res);
 
     if (result === 0) {
@@ -146,6 +169,8 @@ async function getCreatorData(req, res) {
 
 // DONE: This one is done.
 async function getUserData(req, res) {
+    console.log(req.sessionID)
+
     const user_data = await mongoserver.run(mongoserver.getUser, req, res);
     // Function also checks if password matches
     if (user_data === 0) {
@@ -161,6 +186,11 @@ async function getUserData(req, res) {
             Error: 'User not found.'
         });
     } else {
+        req.session.authenticated = true;
+        req.session.user = {
+            username: req.params.id, 
+            password: req.params.password
+        };
         res.status(200).send({
             user_id: user_data['id'],
             password: user_data['password']
@@ -169,6 +199,13 @@ async function getUserData(req, res) {
 }
 // DONE
 async function getUserSubData(req, res) {
+    if (!req.session.authenticated) {
+        res.status(401).send({
+            'Error': 'Unable to verify authentication'
+        });
+        return;
+    }
+    req.params.id = req.session.user.username;
     const user_sub_data = await mongoserver.run(mongoserver.getSubs, req, res);
     const params = req.params;
     if (user_sub_data === 0) {
@@ -185,7 +222,13 @@ async function getUserSubData(req, res) {
 }
 
 async function getUserWatchHist(req, res) {
-    //const user_watch_hist_data = getDataBase('user_watch_hist_data');
+    if (!req.session.authenticated) {
+        res.status(401).send({
+            'Error': 'Unable to verify authentication'
+        });
+        return;
+    }
+    req.params.id = req.session.user.username;
     const user_watch_hist_data = await mongoserver.run(mongoserver.getHist, req, res);
     console.log("userWatchHist");
     console.log(user_watch_hist_data);
@@ -263,40 +306,37 @@ function getYoutubeSearchResults(req, res) {
         }
     );
 }
+// Checks if authenticated
+function isAuth(req, res) {
+    if (!req.session.authenticated) {
+        res.status(401).send({
+            'Error': 'Unable to verify authentication'
+        });
+    } else {
+        res.status(200).send({
+            'Success': 'Auth verified'
+        });
+    }
+}
+function logout(req, res) {
+    req.session.authenticated = false; 
+    res.status(200).send({
+        'Success': 'Logout succesful'
+    });
+}
+
 // ^ handle_reqs.js
-
-// // Session configuration
-
-// const session = {
-//     secret : process.env.SECRET || 'SECRET', // set this encryption key in Heroku config (never in GitHub)!
-//     resave : false,
-//     saveUninitialized: false
-// };
-
-// // Passport configuration
-// // TODO: fix this
-
-// const strategy = new LocalStrategy(
-//     async (username, password, done) => {
-// 	// if (!findUser(username)) {
-// 	//     // no such user
-// 	//     return done(null, false, { 'message' : 'Wrong username' });
-// 	// }
-// 	if (!validatePassword(username, password)) {
-// 	    // invalid password
-// 	    // should disable logins after N messages
-// 	    // delay return to rate-limit brute-force attacks
-// 	    await new Promise((r) => setTimeout(r, 2000)); // two second delay
-// 	    return done(null, false, { 'message' : 'Wrong password' });
-// 	}
-// 	// success!
-// 	// should create a user object here, associated with a unique identifier
-// 	return done(null, username);
-//     });
 
 app.use(express.json());
 
 app.use(express.static('src'));
+
+app.use(session({
+    secret: process.env.SECRET || 'SECRET',
+    cookie: { maxAge: 300000 }, 
+    saveUninitialized: false,
+    store 
+}));
 
 app.listen(
     process.env.PORT || PORT,
@@ -329,6 +369,7 @@ app.get('/results', (req, res) => {
     res.sendFile('searchResult.html', { root: 'src' });
 })
 
+
 // CRUD (no read)
 
 app.post('/createaccount', createAccount);
@@ -358,3 +399,8 @@ app.get('/getcreatordata/:id', getCreatorData);
 // get search results
 app.get('/getTwitchSearchResults/:query', getTwitchSearchResults);
 app.get('/getYoutubeSearchResults/:query', getYoutubeSearchResults);
+
+// check if signed-in (session)
+app.get('/auth', isAuth);
+// change session to not-authenticated
+app.get('/logout', logout);

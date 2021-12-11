@@ -9,7 +9,7 @@ async function unsubscribe(creator_id) {
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({ creator_id: creator_id, user_id: window.localStorage.getItem('username') })
+    body: JSON.stringify({ creator_id: creator_id, user_id: 'placeholder' })
   });
   console.log(response);
   window.location.reload();
@@ -17,8 +17,13 @@ async function unsubscribe(creator_id) {
 
 
 async function loadSubs() {
-  const email = window.localStorage.getItem('username');
-  const url = '/getusersubdata/' + email;
+  const check = await fetch('/auth');
+  const checkResponse = await check.json();
+  if (checkResponse.hasOwnProperty('Error')) {
+    window.location.href = './signin';
+  }
+  // const email = window.localStorage.getItem('username');
+  const url = '/getusersubdata/' + 'id';
   const response = await fetch(url);
   const data = await response.json();
   const subs = data.subs;

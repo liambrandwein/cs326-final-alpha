@@ -1,8 +1,13 @@
 import { watch } from './utils.js';
 
 async function loadHistory() {
-    const email = window.localStorage.getItem('username');
-    const url = '/getuserwatchhist/' + email;
+    // const email = window.localStorage.getItem('username');
+    const check = await fetch('/auth');
+    const checkResponse = await check.json();
+    if (checkResponse.hasOwnProperty('Error')) {
+      window.location.href = './signin';
+    }
+    const url = '/getuserwatchhist/' + 'placeholder';
     const response = await fetch(url);
     const data = await response.json();
     const history = data.history;

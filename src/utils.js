@@ -12,7 +12,7 @@ export async function watch(creator_id) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify({
-            creator_id: creator_id, id: window.localStorage.getItem('username'),
+            creator_id: creator_id, id: 'placeholder',
             last_watch_time: dateTime
         })
     });
