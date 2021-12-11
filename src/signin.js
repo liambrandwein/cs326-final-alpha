@@ -1,6 +1,6 @@
-if (window.localStorage.getItem('username')) {
-    window.location.href = './';
-}
+// if (window.localStorage.getItem('username')) {
+//     window.location.href = './';
+// }
 
 async function validateLogin() {
     const email = document.getElementById('email').value;
