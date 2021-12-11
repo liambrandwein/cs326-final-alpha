@@ -13,15 +13,64 @@ Long Le, GitHub: vlongle
 ## APIs
 
 ## Database
-The data is stored using MongoDB, specifically MongoDB Atlas. 
+The data is stored using MongoDB, specifically MongoDB Atlas. The Database is called "watchalldata". Within are 4 collections: userdata, usersubdata, userwatchhistdata, and creatordata. Userdata stores emails and passwords (salted + hashed). Usersubdata stores a list of creator names/IDs along with the corresponding users' ID's (emails). Userwatchhistdata is similar to usersubdata except it also stores timestamps for the watch history page. Creatordata is a collection of data for each content creator -- this is used by pages such as watch history and subscriptions to display data about content creators. Content creator lists are fetched from usersubdata and userwatchhistdata, and then the necessary data is fetched from creatordata.
 
 ## URL Routes/Mappings
 
 ## Authentication/Authorization
+Nobody can view the site unless they have an account. Creating an account requires an unused email and a password of at least 8 characters. Once the account is created, the password is salted, hashed, and stored (along with the email) in 'userdata' as described above. Logging in creates a session that is stored in a cookie -- express-session is used for this. The session times out eventually, and revisting the site often requires a relogin by design. Only a logged-in user can access the API, and only through the site, and only for their data (watch history, subscriptions).
 
 ## Divison of Labor
 
 ## Conclusion
 
+
 ## Rubric
-(Rubric is called 'rubric.md', copy paste later)
+### General &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 25 pts
+
+- Authentication
+  - Successfully create a user through sign up
+  - Successfully login a user
+  - Only able to view the details of the inner pages if you are a user.
+    - We acknowledge that the page will start to load the html if you are not logged in; however, no details will be displayed.
+  - API/Database only accesible through the site with a logged-in user  
+- Routing
+- Linting/ code style
+
+### Subscription Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 20 pts
+- Successfully view creators
+- Succesfully displays creator thumbnails
+- Allows you to click on 'Watch now' to link to the creator's page
+- Watching a creator adds that creator to watch history
+
+### Watch History Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 20 pts
+- Can view history of watched creators
+- Includes timestamp, a link to the content, and thumbnail
+- Can clear watch history
+
+### Home Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 20 pts
+- Can view recommendations for Twitch/Youtubers to watch
+- Can navigate to other areas of the site from home page
+
+### CRUD &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;  ___ / 5 pts									
+- Create: **1 pt**
+  - Users
+  - Subscriptions
+  - Creators
+- Read: **1 pt**
+  - Get subscriber data
+  - Get data about the creators
+  - Get watch history data
+- Update: **1 pt**
+  - Update watch history
+- Delete: **1 pt**
+  - Remove a subscription
+  - Clear watch history
+
+### Final Video &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 10 pts
+
+- Video demonstrates all aspects of the site
+- All video requirements met  
+
+
+### &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; Total:  ___ / 100 points
