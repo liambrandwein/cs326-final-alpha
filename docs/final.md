@@ -9,7 +9,29 @@ Liam Brandwein, GitHub: liambrandwein
 Long Le, GitHub: vlongle  
   
 ## User Interface
+Home page: Has a basic recommendation system. Scrolling down reveals recommended Twitch channels.  
 
+![Home](/docs/images/homepage_final.png "Home")  
+
+Watch history: Keeps track of the creators you'ved watched. You can "Watch again" or clear the history  
+
+![Watch History](/docs/images/watchhistory_final.png "Watch History")  
+
+Subscriptions: Keeps track of the Twitch/YouTube creators you are subscribed to. Allows you to watch the creator and unsubscribe from them.
+
+![Subscriptions](/docs/images/subscriptionpage_final.png "Subscriptions")  
+
+Search results: Allows you to use keywords to search for Twitch/YouTube creators that you can then subscribe to or watch.
+
+![Search results](/docs/images/searchresult_final.png "Search results")  
+
+Sign in: Allows you to sign in to an account that you have created. Then, a session is created so you can access your data.
+
+![Sign In](/docs/images/signin_final.png "Sign In")  
+
+Sign up: Allows you to sign up for an account that you can then login to. Username must be an unused email and the password must be at least 8 characters.
+
+![Sign Up](/docs/images/signup_final.png "Sign Up")
 ## APIs
 
 ## Database
