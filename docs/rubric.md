@@ -1,4 +1,4 @@
-# Team Alpha Final Rubric (template, paritally complete)
+# Team Alpha Final Rubric
 
 ### General &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 25 pts
 
@@ -15,26 +15,16 @@
 - Successfully view creators
 - Succesfully displays creator thumbnails
 - Allows you to click on 'Watch now' to link to the creator's page
-- Successfully changes setting options between calendars you are the administrator or and ones you are not
-- Successfully creates and edits items
-- Edit/creation modal efficiently switches between the time fields for action items and events
-- Successfully pulls items onto the personal calendar
+- Watching a creator adds that creator to watch history
 
 ### Watch History Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 25 pts
-- Calendar view is successfully set to the current month and day
-- Calendar days with items are successfully set
-- The Day View successfully adds correct items when a day is clicked
-- Items are editable and able to be deleted and the Day View is updated accordingly
-- To-dos are able to be added
-- To-dos can be archived on checking them off
-- To-dos can be unarchived on unchecking them
-- Archived to-dos are successfully removed after 24 hours
+- Can view history of watched creators
+- Includes timestamp, a link to the content, and thumbnail
+- Can clear watch history
 
-### Calendar Gallery &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 20 pts
-- Pre-made calendars are subscribable
-- Can successfully create a calendar
-- Can successfully subscribe to a pre-made calendar
-- Can successfully subscribe to another user’s calendar
+### Home Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 20 pts
+- Can view recommendations for Twitch/Youtubers to watch
+- Can navigate to other areas of the site from home page
 
 ### CRUD &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;  ___ / 5 pts									
 - Create: **1 pt**
