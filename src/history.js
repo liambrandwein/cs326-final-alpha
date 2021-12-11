@@ -5,7 +5,7 @@ async function loadHistory() {
     const check = await fetch('/auth');
     const checkResponse = await check.json();
     if (checkResponse.hasOwnProperty('Error')) {
-      window.location.href = './signin';
+        window.location.href = './signin';
     }
     const url = '/getuserwatchhist/' + 'placeholder';
     const response = await fetch(url);
@@ -52,6 +52,7 @@ async function loadHistory() {
 }
 
 async function clearHistory() {
+
     const url = '/clearwatchhist/'
     const user_id = window.localStorage.getItem('username');
     const response = await fetch(url, {
@@ -61,6 +62,7 @@ async function clearHistory() {
         },
         body: JSON.stringify({ id: user_id })
     });
+    console.log("clear history ");
     // reload the page
     window.location.reload();
 }

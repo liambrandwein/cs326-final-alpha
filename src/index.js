@@ -1,4 +1,5 @@
 
+import { watch } from './utils.js';
 // Check if logged in
 
 // if (!window.localStorage.getItem('username')) {
@@ -47,14 +48,14 @@ function populateRecommendedContent(items) {
         <img src="${profile_pic}" class="card-img-top">
         <div class="card-body">
           <h4 class="card-title">${channel_name}<h4>
-          <button type="button" class="btn btn-warning" href="${url}" id="home-watch-${channel_id}">Watch Now!</button>
+          <a id="home-watch-${channel_name}" href="${url}" class="btn btn-primary">Watch now</a>
         </div>
       </div>
     </div>
         `;
 
     document.getElementById(`recommend-${platform}`).insertAdjacentHTML('beforeend', div);
-    document.getElementById(`home-watch-${channel_id}`).addEventListener('click', () => watch(channel_id));
+    document.getElementById(`home-watch-${channel_name}`).addEventListener('click', () => watch(channel_name));
 
   }
 }
@@ -102,14 +103,14 @@ async function loadRecommendedContent() {
     }
   }
 
-  if (youtube_num < 8) {
-    let defaultYoutube = await loadDefaultRecommendedContent('youtube');
-    items = items.concat(defaultYoutube);
-  }
-  if (twitch_num < 8) {
-    let defaultTwitch = await loadDefaultRecommendedContent('twitch');
-    items = items.concat(defaultTwitch);
-  }
+  // if (youtube_num < 8) {
+  //   let defaultYoutube = await loadDefaultRecommendedContent('youtube');
+  //   items = items.concat(defaultYoutube);
+  // }
+  // if (twitch_num < 8) {
+  //   let defaultTwitch = await loadDefaultRecommendedContent('twitch');
+  //   items = items.concat(defaultTwitch);
+  // }
 
   console.log("items");
   console.log(items);

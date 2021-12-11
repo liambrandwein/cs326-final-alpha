@@ -13,7 +13,7 @@ if (!process.env.YOUTUBEKEY) {
 
 
 async function youtubeSearch(query, resultsPerPage, pageToken) {
-    console.log("Ready to get Youtube data!");
+    console.log("Ready to get Youtube data with API key " + YOUTUBE_API_KEY);
     let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&type=video&part=snippet&q=${query}`;
     if (resultsPerPage) {
         url = `${url}&maxResults=${resultsPerPage}`;

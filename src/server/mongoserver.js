@@ -61,7 +61,7 @@ async function createAcc(client, req, res) {
     obj3['id'] = email;
     obj3['creators'] = [];
     obj3['watch_times'] = [];
-    
+
     const result3 = await client.db("watchalldata").collection("userwatchhistdata").insertOne(obj3);
 
     return result;
@@ -140,8 +140,9 @@ async function clearHist(client, req, res) {
     if (!checkResult || checkResult.creators.includes(body.creator_id)) {
         return 0;
     }
-    
+
     const result = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$set': { 'creators': [] } });
+    const result2 = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$set': { 'watch_times': [] } });
     return result;
 }
 
@@ -213,7 +214,7 @@ async function getSubs(client, req, res) {
 async function getHist(client, req, res) {
     const params = req.params;
     const email = params.id
-    
+
     const results = await client.db('watchalldata').collection("userwatchhistdata").findOne({ 'id': email });
     if (!results) {
         return 0;
