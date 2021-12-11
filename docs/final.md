@@ -10,6 +10,21 @@ Long Le, GitHub: vlongle
   
 ## User Interface
 
+| UI view      						| Name		    |  Description|
+| ----------- 						| ----------- | ----------- |
+| ![](./images/signup.png) 		| Sign-up        |  The user can sign up a new account.      |
+| ![](./images/signin.png) 		| Sign-in        |  The user can sign in.      |
+| ![](./images/home.png) 			| Home        |  The user can get their recommended concent, including the content from their subscribed creators here.      |
+| ![](./images/search.png) 		| Search Results        |  The user can search for content across platforms (Youtube and Twitch) through the search bar. The returned results will be displayed here.      |
+| ![](./images/subscribe.png) 		| Subscription Manager        |  The user can unsubscribe or watch their creators from here.      |
+| ![](./images/history.png) 		| History        |  This page displays the user's watch history with timestamps. The user can also clear their history.      |
+
+
+
+
+
+
+
 ## APIs
 
 ## Database
