@@ -1,13 +1,10 @@
-
-// DELETE LATER ^^^^^^
 const { MongoClient } = require("mongodb");
 const bcrypt = require("bcrypt");
 const validator = require("email-validator");
 
-
 // Function to connect to the server (mQuery is the function passed to this
-// function in handle_reqs.js. To get data from the MongoDB Atlas server in 
-// handle_reqs.js, do 'await mongoserver.run(mongoserver.[mQuery], req, res)'
+// function. To get data from the MongoDB Atlas server in handle_reqs.js, do
+// 'await mongoserver.run(mongoserver.[mQuery], req, res)'
 async function run(mQuery, req, res) {
     let secrets;
     let pass;
@@ -18,36 +15,23 @@ async function run(mQuery, req, res) {
         pass = process.env.PASSWORD;
     }
 
-    // Replace the following with values for your environment.
     const username = encodeURIComponent("admin");
     const password = encodeURIComponent(pass);
     const clusterUrl = "326-final-alpha.juhom.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-    // Replace the following with your MongoDB deployment's connection string.
-    const uri =
-        `mongodb+srv://${username}:${password}@${clusterUrl}`;
-
-    // Create a new MongoClient
+    const uri = `mongodb+srv://${username}:${password}@${clusterUrl}`;
     const client = new MongoClient(uri);
 
     let result;
     try {
-        // Connect the client to the server
         await client.connect();
-        // to allow function to retrieve result
         result = await mQuery(client, req, res);
-        // Establish and verify connection
         await client.db("admin").command({ ping: 1 });
     } finally {
-        // Ensures that the client will close when you finish/error
         await client.close();
         return result
     }
 }
 
-// Remember: must pass function names to the run function mQuery parameter
-// Old schema (user_data.json): { 'email': 'password' }
-// New schema (userdata collection): { 'id': 'email', 'password': 'password' }
 async function createAcc(client, req, res) {
     const body = req.body;
 
@@ -57,7 +41,7 @@ async function createAcc(client, req, res) {
     }
 
     const checkResult = await client.db("watchalldata").collection("userdata").findOne({ 'id': email });
-    // Checks if the email exists
+
     if (checkResult) {
         return 0;
     }
@@ -65,26 +49,24 @@ async function createAcc(client, req, res) {
     const obj = {};
     obj['id'] = email;
     obj['password'] = pass;
-    // userdata
+
     const result = await client.db("watchalldata").collection("userdata").insertOne(obj);
-    // usersubdata
+
     const obj2 = {};
     obj2['id'] = email;
     obj2['creators'] = [];
     const result2 = await client.db("watchalldata").collection("usersubdata").insertOne(obj2);
-    // userwatchhist
+
     const obj3 = {};
     obj3['id'] = email;
     obj3['creators'] = [];
     obj3['watch_times'] = [];
-    console.log(obj3);
+    
     const result3 = await client.db("watchalldata").collection("userwatchhistdata").insertOne(obj3);
 
     return result;
 }
 
-// Old schema (user_sub_data.json): { 'email': ['creator name', 'creator name',...]}
-// New schema (usersubdata collection): { 'id': 'email', 'creators': ['creator name', 'creator name',...]}
 async function addSub(client, req, res) {
     const body = req.body;
 
@@ -121,9 +103,7 @@ async function removeSub(client, req, res) {
 
     return result;
 }
-// TODO: 
-// Old schema (user_watch_hist_data.json): { 'email': ['creator name', 'creator name',...]}
-// New schema (userwatchhistdata collection, very similar to usersubdata): { 'id': 'email', 'creators': ['creator name', 'creator name',...]}
+
 async function updateHist(client, req, res) {
     const body = req.body;
 
@@ -135,18 +115,14 @@ async function updateHist(client, req, res) {
         return 0;
     }
     if (checkResult.creators.includes(body.creator_id)) {
-        // https://stackoverflow.com/questions/33100750/get-index-of-given-element-in-array-field-in-mongodb
         const index = checkResult.creators.indexOf(body.creator_id);
         const prev_watch_time = checkResult.watch_times[index];
-        // delete the previous data in userwatchhistdata so that the later insertion can overwrite it
         await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$pull': { 'creators': body.creator_id } });
         await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$pull': { 'watch_times': prev_watch_time } });
-
     }
 
     const result = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$push': { 'creators': body.creator_id } });
     const result2 = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$push': { 'watch_times': last_watch_time } });
-    console.log("updateHist result: " + email + " " + body.creator_id + " " + last_watch_time);
 
 
     if (!result) {
@@ -155,33 +131,20 @@ async function updateHist(client, req, res) {
 
     return result;
 }
-// TODO:
+
 async function clearHist(client, req, res) {
     const body = req.body;
     const email = body.id;
     const checkResult = await client.db("watchalldata").collection("userwatchhistdata").findOne({ 'id': email });
 
     if (!checkResult || checkResult.creators.includes(body.creator_id)) {
-        // already not in history database
         return 0;
     }
-    // set history array to empty
+    
     const result = await client.db("watchalldata").collection("userwatchhistdata").updateOne({ 'id': email }, { '$set': { 'creators': [] } });
     return result;
 }
-// API GETTERS
 
-// NOTE: deprecated. We're not creating creator_data.json anymore.
-// Old schema (creator_data.json): { 'creator name': { 'data': [{ 'platform': 'platform name', 'url': 'url'},...] } }
-// New schema (creatordata collection): { 'name': 'creator name', 'id': 'creator id', 'data': [{ 'platform': 'platform name', 'url': 'url'},...], 'thumbnail': 'thumbnail url' }
-// async function getCreator(client, req, res) {
-
-// }
-// // TODO:
-// async function getAllCreator(client, req, res) {
-
-// }
-// TODO (this is for addCreator in handle_reqs.js):
 async function addCreate(client, req, res) {
     const body = req.body;
 
@@ -209,11 +172,9 @@ async function addCreate(client, req, res) {
 
     return result;
 }
-// DONE
-// TODO: Update get creator function with new schema
+
 async function getCreator(client, req, res) {
     const id = req.params.id;
-    console.log(id);
     const checkResult = await client.db("watchalldata").collection("creatordata").findOne({ 'id': id });
 
     if (!checkResult) {
@@ -222,7 +183,7 @@ async function getCreator(client, req, res) {
 
     return checkResult;
 }
-// DONE
+
 async function getUser(client, req, res) {
     const email = req.params.id;
     const checkResult = await client.db("watchalldata").collection("userdata").findOne({ 'id': email });
@@ -252,9 +213,7 @@ async function getSubs(client, req, res) {
 async function getHist(client, req, res) {
     const params = req.params;
     const email = params.id
-    console.log("email:");
-    console.log(email);
-    // set history array to empty
+    
     const results = await client.db('watchalldata').collection("userwatchhistdata").findOne({ 'id': email });
     if (!results) {
         return 0;

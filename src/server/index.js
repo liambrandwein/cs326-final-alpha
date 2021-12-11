@@ -1,22 +1,14 @@
 const express = require('express');
-// const handle = require('./handle_reqs');
-// v handle_reqs.js 
-let fs = require('fs');
-let mongodb = require('mongodb');
-let mongoserver = require('./mongoserver');
-let bcrypt = require('bcrypt');
-let twitch = require('./external/twitch_get');
-let youtube = require('./external/youtube_get');
-// ^ handle_reqs.js
-
-// authentication stuff v *different from class stuff
-const session = require('express-session');  // for managing session state
+const mongoserver = require('./mongoserver');
+const bcrypt = require('bcrypt');
+const twitch = require('./external/twitch_get');
+const youtube = require('./external/youtube_get');
+const session = require('express-session');  
 const store = new session.MemoryStore();
 
 const app = express();
 const PORT = 8080;
 
-// v handle_reqs.js 
 async function createAccount(req, res) {
     const result = await mongoserver.run(mongoserver.createAcc, req, res);
     if (result === 0) {
@@ -33,8 +25,7 @@ async function createAccount(req, res) {
         });
     }
 }
-// DONE
-// TODO: Update this to use the mongoserver.js function 'addSub'
+
 async function addUserSub(req, res) {
     if (!req.session.authenticated) {
         res.status(401).send({
@@ -58,7 +49,6 @@ async function addUserSub(req, res) {
     }
 }
 
-// **DONE TODO: Update this to use the mongoserver.js function 'removeSub'
 async function removeUserSub(req, res) {
     if (!req.session.authenticated) {
         res.status(401).send({
@@ -84,8 +74,6 @@ async function removeUserSub(req, res) {
     }
 }
 
-// DONE
-// Update this to use the mongoserver.js function 'updateHist'
 async function updateWatchHist(req, res) {
     if (!req.session.authenticated) {
         res.status(401).send({
@@ -108,7 +96,6 @@ async function updateWatchHist(req, res) {
     }
 }
 
-// TODO: Update this to use the mongoserver.js function 'clearHist'
 async function clearWatchHist(req, res) {
     if (!req.session.authenticated) {
         res.status(401).send({
@@ -125,9 +112,6 @@ async function clearWatchHist(req, res) {
 
 }
 
-
-// DONE
-// Now it takes a creator name, creator id, platform, url, AND thumbnail url ('thumbnail')
 async function addCreator(req, res) {
     if (!req.session.authenticated) {
         res.status(401).send({
@@ -150,7 +134,6 @@ async function addCreator(req, res) {
     }
 }
 
-// API GETTERS (ALL TODO:)
 async function getCreatorData(req, res) {
     const result = await mongoserver.run(mongoserver.getCreator, req, res);
     if (result === 0) {
@@ -167,19 +150,14 @@ async function getCreatorData(req, res) {
     }
 }
 
-// DONE: This one is done.
 async function getUserData(req, res) {
-    console.log(req.sessionID)
-
     const user_data = await mongoserver.run(mongoserver.getUser, req, res);
-    // Function also checks if password matches
     if (user_data === 0) {
         res.status(404).send({
             Error: 'User not found.'
         });
         return;
     }
-    // Compare password to hashed one.
     const passMatch = await bcrypt.compare(req.params.password, user_data.password);
     if (!passMatch) {
         res.status(404).send({
@@ -197,7 +175,6 @@ async function getUserData(req, res) {
         });
     }
 }
-// DONE
 async function getUserSubData(req, res) {
     if (!req.session.authenticated) {
         res.status(401).send({
@@ -230,8 +207,6 @@ async function getUserWatchHist(req, res) {
     }
     req.params.id = req.session.user.username;
     const user_watch_hist_data = await mongoserver.run(mongoserver.getHist, req, res);
-    console.log("userWatchHist");
-    console.log(user_watch_hist_data);
     const params = req.params;
     if (user_watch_hist_data) {
         res.send({
@@ -246,26 +221,7 @@ async function getUserWatchHist(req, res) {
     }
 }
 
-// function getCreatorData(req, res) {
-//     const creator_data = getDataBase('creator_data');
-//     const body = req.body;
-//     const params = req.params;
-//     if (params.id in creator_data) {
-//         res.send(creator_data[params.id]);
-//     } else {
-//         res.send({
-//             Error: 'Creator not found.'
-//         });
-//     }
-// }
-
-// function getAllCreatorData(req, res) {
-//     const creator_data = getDataBase('creator_data');
-//     res.status(200).send(creator_data);
-// }
-
 function getTwitchSearchResults(req, res) {
-    console.log("getting twitch search")
     twitch.twitchSearch(req.params.query).then(
         (data) => {
             let parsed_data = [];
@@ -306,7 +262,7 @@ function getYoutubeSearchResults(req, res) {
         }
     );
 }
-// Checks if authenticated
+
 function isAuth(req, res) {
     if (!req.session.authenticated) {
         res.status(401).send({
@@ -318,14 +274,13 @@ function isAuth(req, res) {
         });
     }
 }
+
 function logout(req, res) {
     req.session.authenticated = false; 
     res.status(200).send({
         'Success': 'Logout succesful'
     });
 }
-
-// ^ handle_reqs.js
 
 app.use(express.json());
 
@@ -342,8 +297,6 @@ app.listen(
     process.env.PORT || PORT,
     () => console.log('server up!')
 );
-
-// STATIC HTML:
 
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: 'src' });
@@ -369,9 +322,6 @@ app.get('/results', (req, res) => {
     res.sendFile('searchResult.html', { root: 'src' });
 })
 
-
-// CRUD (no read)
-
 app.post('/createaccount', createAccount);
 
 app.post('/addusersub', addUserSub);
@@ -384,8 +334,6 @@ app.delete('/clearwatchhist', clearWatchHist);
 
 app.post('/addcreator', addCreator);
 
-// API GETTERS (read)
-
 app.get('/getuserdata/:id/:password', getUserData);
 
 app.get('/getusersubdata/:id', getUserSubData);
@@ -393,14 +341,11 @@ app.get('/getusersubdata/:id', getUserSubData);
 app.get('/getuserwatchhist/:id', getUserWatchHist);
 
 app.get('/getcreatordata/:id', getCreatorData);
-// This version gets all the creator data
-// app.get('/getallcreatordata', handle.getAllCreatorData);
 
-// get search results
 app.get('/getTwitchSearchResults/:query', getTwitchSearchResults);
+
 app.get('/getYoutubeSearchResults/:query', getYoutubeSearchResults);
 
-// check if signed-in (session)
 app.get('/auth', isAuth);
-// change session to not-authenticated
+
 app.get('/logout', logout);

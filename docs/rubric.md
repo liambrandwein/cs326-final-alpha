@@ -11,13 +11,13 @@
 - Routing
 - Linting/ code style
 
-### Subscription Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 25 pts
+### Subscription Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 20 pts
 - Successfully view creators
 - Succesfully displays creator thumbnails
 - Allows you to click on 'Watch now' to link to the creator's page
 - Watching a creator adds that creator to watch history
 
-### Watch History Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 25 pts
+### Watch History Page &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 20 pts
 - Can view history of watched creators
 - Includes timestamp, a link to the content, and thumbnail
 - Can clear watch history
@@ -40,5 +40,11 @@
 - Delete: **1 pt**
   - Remove a subscription
   - Clear watch history
+
+### Final Video &emsp; &emsp; &emsp; &emsp; &emsp; ___ / 10 pts
+
+- Video demonstrates all aspects of the site
+- All video requirements met  
+
 
 ### &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; Total:  ___ / 100 points
