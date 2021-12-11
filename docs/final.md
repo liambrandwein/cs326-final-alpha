@@ -88,21 +88,21 @@ The percentage of contribution for each team member is as follows:
 
 | Parts | Long |  Liam |
 | ----------- 						| ----------- | ----------- |
-External API calls (to Twitch, Youtube)	| 80% | 20% |
+External API calls (to Twitch, Youtube)	| 70% | 30% |
 HTML/CSS pages  | 70% | 30% |
 Routing | 40% | 60% |
 Mongodb databases | 30% | 70% |
-Secure authentication and session | 20% | 80% |
+Secure authentication and session | 30% | 70% |
 Miscellaneous algorithms (e.g. for recommendation) | 60% | 40% |
 Total | 50% | 50% |
 
 ## Conclusion
 
-Our team has learned a lot through this project. We have learned to develop end-to-end a functional web application with modular components. We have learned to set up authentication, users' databases, routing, and request calls. One of the most challenging parts is the authentication. 
+Our team has learned a lot throughout this project. We have learned how to develop end-to-end a functional web application with modular components. We have learned how to set up authentication, users' databases, routing, and API request calls. One of the most challenging parts was the authentication. 
 
-One thing that we would have liked to know before hand is that we would want to use MongoDB as the storage solution up front so that we don't have to later migrate from local storage.  
+One thing that we would have liked to have known beforehand is that we would've wanted to use MongoDB as the storage solution to begin with so as to avoid having to later migrate from local storage.  
 
-In the future, we'd like to implement more data-driven recommendation system, add more content platforms, and allow users to stream or upload content on our site. 
+In the future, we'd like to implement more data-driven recommendation systems, add more content platforms, and allow users to stream or upload content on our site. 
 
 ## Rubric
 
