@@ -1,7 +1,3 @@
-// if (window.localStorage.getItem('username')) {
-//     window.location.href = './';
-// }
-
 async function validateLogin() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -15,16 +11,14 @@ async function validateLogin() {
 
     const response = await fetch(url);
     const getReturn = await response.json();
-    
+
     if (getReturn.hasOwnProperty('Error')) {
         alert('Incorrect username and/or password.');
         return 0;
     }
-    // Store login info -- this only executes if you have an account
-    // window.localStorage.setItem('username', getReturn['user_id']);
 
     window.location.href = './';
-}   
+}
 
 document.getElementById('sign-up').href = './signup';
 

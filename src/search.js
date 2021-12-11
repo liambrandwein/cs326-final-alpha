@@ -27,8 +27,6 @@ function shuffle(array) {
 
 
 async function subscribe(i, data) {
-  // TODO: see function unsubscribe in sub.js for reference
-
 
   const response = await fetch('/addusersub', {
     method: 'POST',

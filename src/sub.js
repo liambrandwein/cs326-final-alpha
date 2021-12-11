@@ -22,7 +22,6 @@ async function loadSubs() {
   if (checkResponse.hasOwnProperty('Error')) {
     window.location.href = './signin';
   }
-  // const email = window.localStorage.getItem('username');
   const url = '/getusersubdata/' + 'id';
   const response = await fetch(url);
   const data = await response.json();

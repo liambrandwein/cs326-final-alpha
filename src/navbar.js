@@ -1,13 +1,3 @@
-// if (localStorage.getItem("username") === null) {
-//     alert("You are not signed on")
-//     location.href = "./signin"
-// }
-// const check = await fetch('/auth');
-// const checkResponse = await check.json();
-// if (checkResponse.hasOwnProperty('Error')) {
-//     alert("You are not signed on")
-//   location.href = './signin';
-// }
 document.getElementById("logout").onclick = async function () {
     alert("You have been logged out");
     const deleteAllCookies = () => {

@@ -1,7 +1,6 @@
 import { watch } from './utils.js';
 
 async function loadHistory() {
-    // const email = window.localStorage.getItem('username');
     const check = await fetch('/auth');
     const checkResponse = await check.json();
     if (checkResponse.hasOwnProperty('Error')) {
