@@ -8,41 +8,41 @@ let accessToken;
 let secrets;
 
 if (!process.env.TWITCHID) {
-    secrets = require('../secrets.json');
-    clientId = secrets.twitchid;
+	secrets = require('../secrets.json');
+	clientId = secrets.twitchid;
 } else {
-    clientId = process.env.TWITCHID;
+	clientId = process.env.TWITCHID;
 }
 
 if (!process.env.TWITCHKEY) {
-    secrets = require('../secrets.json');
-    accessToken = secrets.twitchkey;
+	secrets = require('../secrets.json');
+	accessToken = secrets.twitchkey;
 } else {
-    accessToken = process.env.TWITCHKEY;
+	accessToken = process.env.TWITCHKEY;
 }
 
 const authProvider = new StaticAuthProvider(clientId, accessToken);
 const apiClient = new ApiClient({ authProvider });
 
 async function isStreamLive(userName) {
-    const user = await apiClient.helix.users.getUserByName(userName);
-    if (!user) {
-        return false;
-    }
-    const data = await apiClient.helix.streams.getStreamByUserId(user.id) !== null;
+	const user = await apiClient.helix.users.getUserByName(userName);
+	if (!user) {
+		return false;
+	}
+	const data = await apiClient.helix.streams.getStreamByUserId(user.id) !== null;
 
 }
 
 // isStreamLive('chess');
 
 async function twitchSearch(query) {
-    // const channels = await apiClient.helix.search.searchChannels('pear');
-    let channels = await apiClient.helix.search.searchChannels(query);
-    return channels['data'];
+	// const channels = await apiClient.helix.search.searchChannels('pear');
+	let channels = await apiClient.helix.search.searchChannels(query);
+	return channels['data'];
 }
 
 module.exports = {
-    twitchSearch,
-    isStreamLive
+	twitchSearch,
+	isStreamLive
 };
 

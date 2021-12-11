@@ -1,34 +1,34 @@
 import { watch } from './utils.js';
 
 async function loadHistory() {
-    const check = await fetch('/auth');
-    const checkResponse = await check.json();
-    if (checkResponse.hasOwnProperty('Error')) {
-        window.location.href = './signin';
-    }
-    const url = '/getuserwatchhist/' + 'placeholder';
-    const response = await fetch(url);
-    const data = await response.json();
-    const history = data.history;
+	const check = await fetch('/auth');
+	const checkResponse = await check.json();
+	if (checkResponse.hasOwnProperty('Error')) {
+		window.location.href = './signin';
+	}
+	const url = '/getuserwatchhist/' + 'placeholder';
+	const response = await fetch(url);
+	const data = await response.json();
+	const history = data.history;
 
 
 
-    // display the history
-    for (let i = 0; i < history.length; i++) {
-        const creator_id = history[i];
+	// display the history
+	for (let i = 0; i < history.length; i++) {
+		const creator_id = history[i];
 
-        // query creator's data
-        const creator_url = '/getcreatordata/' + creator_id;
+		// query creator's data
+		const creator_url = '/getcreatordata/' + creator_id;
 
-        const creator_response = await fetch(creator_url);
-        const creator_data = await creator_response.json();
+		const creator_response = await fetch(creator_url);
+		const creator_data = await creator_response.json();
 
-        const pic = creator_data.thumbnail;
-        const last_watch = data.watch_times[i];
-        const platform = creator_data['data'][0].platform;
-        const platform_url = creator_data['data'][0].url;
+		const pic = creator_data.thumbnail;
+		const last_watch = data.watch_times[i];
+		const platform = creator_data['data'][0].platform;
+		const platform_url = creator_data['data'][0].url;
 
-        const div =
+		const div =
             `<div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
         <div class="col-md-4">
@@ -44,26 +44,26 @@ async function loadHistory() {
         </div>
         </div>
     </div>`;
-        document.getElementById('history-cards').insertAdjacentHTML('beforeend', div);
-        document.getElementById(`hist-watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
-    }
+		document.getElementById('history-cards').insertAdjacentHTML('beforeend', div);
+		document.getElementById(`hist-watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
+	}
 
 }
 
 async function clearHistory() {
 
-    const url = '/clearwatchhist/'
-    const user_id = window.localStorage.getItem('username');
-    const response = await fetch(url, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({ id: user_id })
-    });
+	const url = '/clearwatchhist/';
+	const user_id = window.localStorage.getItem('username');
+	const response = await fetch(url, {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8'
+		},
+		body: JSON.stringify({ id: user_id })
+	});
 
-    // reload the page
-    window.location.reload();
+	// reload the page
+	window.location.reload();
 }
 
 

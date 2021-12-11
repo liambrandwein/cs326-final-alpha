@@ -2,48 +2,48 @@
 import { watch } from './utils.js';
 async function unsubscribe(creator_id) {
 
-  const url = '/removeusersub';
+	const url = '/removeusersub';
 
-  const response = await fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({ creator_id: creator_id, user_id: 'placeholder' })
-  });
+	const response = await fetch(url, {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8'
+		},
+		body: JSON.stringify({ creator_id: creator_id, user_id: 'placeholder' })
+	});
 
-  window.location.reload();
+	window.location.reload();
 }
 
 
 async function loadSubs() {
-  const check = await fetch('/auth');
-  const checkResponse = await check.json();
-  if (checkResponse.hasOwnProperty('Error')) {
-    window.location.href = './signin';
-  }
-  const url = '/getusersubdata/' + 'id';
-  const response = await fetch(url);
-  const data = await response.json();
-  const subs = data.subs;
+	const check = await fetch('/auth');
+	const checkResponse = await check.json();
+	if (checkResponse.hasOwnProperty('Error')) {
+		window.location.href = './signin';
+	}
+	const url = '/getusersubdata/' + 'id';
+	const response = await fetch(url);
+	const data = await response.json();
+	const subs = data.subs;
 
 
-  // display the subs
-  for (let i = 0; i < subs.length; i++) {
-    const creator_id = subs[i];
+	// display the subs
+	for (let i = 0; i < subs.length; i++) {
+		const creator_id = subs[i];
 
-    // query creator's data
-    const creator_url = '/getcreatordata/' + creator_id;
+		// query creator's data
+		const creator_url = '/getcreatordata/' + creator_id;
 
-    const creator_response = await fetch(creator_url);
-    const creator_data = await creator_response.json();
+		const creator_response = await fetch(creator_url);
+		const creator_data = await creator_response.json();
 
 
-    const pic = creator_data.thumbnail;
-    //const content_tag = creator_data.content_tag;
-    const platform = creator_data['data'][0].platform;
-    const platform_url = creator_data['data'][0].url;
-    const div =
+		const pic = creator_data.thumbnail;
+		//const content_tag = creator_data.content_tag;
+		const platform = creator_data['data'][0].platform;
+		const platform_url = creator_data['data'][0].url;
+		const div =
       `
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
@@ -61,13 +61,13 @@ async function loadSubs() {
           </div>
         </div>
         `;
-    document.getElementById('manager-cards').insertAdjacentHTML('beforeend', div);
+		document.getElementById('manager-cards').insertAdjacentHTML('beforeend', div);
 
 
 
-    document.getElementById(`sub-watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
-    document.getElementById(`unsub-${creator_id}`).addEventListener('click', () => unsubscribe(creator_id));
-  }
+		document.getElementById(`sub-watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
+		document.getElementById(`unsub-${creator_id}`).addEventListener('click', () => unsubscribe(creator_id));
+	}
 }
 
 loadSubs();
