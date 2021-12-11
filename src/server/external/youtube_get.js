@@ -27,7 +27,6 @@ async function youtubeSearch(query, resultsPerPage, pageToken) {
     return data;
 }
 
-
 module.exports = {
     youtubeSearch,
 };

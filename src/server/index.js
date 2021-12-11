@@ -3,7 +3,7 @@ const mongoserver = require('./mongoserver');
 const bcrypt = require('bcrypt');
 const twitch = require('./external/twitch_get');
 const youtube = require('./external/youtube_get');
-const session = require('express-session');  
+const session = require('express-session');
 const store = new session.MemoryStore();
 
 const app = express();
@@ -57,7 +57,7 @@ async function removeUserSub(req, res) {
         return;
     }
     req.body.user_id = req.session.user.username;
-    
+
     const user_sub_data = await mongoserver.run(mongoserver.removeSub, req, res);
 
     if (user_sub_data === 0) {
@@ -166,7 +166,7 @@ async function getUserData(req, res) {
     } else {
         req.session.authenticated = true;
         req.session.user = {
-            username: req.params.id, 
+            username: req.params.id,
             password: req.params.password
         };
         res.status(200).send({
@@ -244,6 +244,8 @@ function getTwitchSearchResults(req, res) {
 function getYoutubeSearchResults(req, res) {
     youtube.youtubeSearch(req.params.query, 50).then(
         (data) => {
+            console.log("Youtube data: ");
+            console.log(data);
             data = data['items'];
             let parsed_data = [];
             for (let i = 0; i < data.length; i++) {
@@ -276,7 +278,7 @@ function isAuth(req, res) {
 }
 
 function logout(req, res) {
-    req.session.authenticated = false; 
+    req.session.authenticated = false;
     res.status(200).send({
         'Success': 'Logout succesful'
     });
@@ -288,9 +290,9 @@ app.use(express.static('src'));
 
 app.use(session({
     secret: process.env.SECRET || 'SECRET',
-    cookie: { maxAge: 300000 }, 
+    cookie: { maxAge: 300000 },
     saveUninitialized: false,
-    store 
+    store
 }));
 
 app.listen(

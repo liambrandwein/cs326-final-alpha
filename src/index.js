@@ -6,7 +6,8 @@
 // }
 
 async function loadDefaultRecommendedContent(platform) {
-  const defaultCategories = ['chess', 'cooking', 'coding', 'politics'];
+  //const defaultCategories = ['chess', 'cooking', 'coding', 'politics'];
+  const defaultCategories = ['chess', 'cooking'];
   const RESULTS_LIMIT_PER_CATEGORY = 8;
   let items = [];
   console.log("loadDefaultRecommendedContent" + platform);
