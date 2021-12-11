@@ -6,6 +6,9 @@ import { watch } from './utils.js';
 //   window.location.href = './signin';
 // }
 
+async function loadDefaultRecommendedContent() {
+  const defaultCategories = ['chess', 'cooking'];
+}
 //function for dynamically loading creator content
 async function loadRecommendedContent() {
   const check = await fetch('/auth');
@@ -67,20 +70,19 @@ async function loadRecommendedContent() {
        
         `;
 
-    if (platform === 'youtube') {
-      document.getElementById('recommend-youtube').insertAdjacentHTML('beforeend', div);
-    }
-    else {
-      document.getElementById('recommend-twitch').insertAdjacentHTML('beforeend', div);
-    }
+    document.getElementById(`recommend-${platform}`).insertAdjacentHTML('beforeend', div);
     console.log("watch " + creator_id);
     document.getElementById(`home-watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
 
   }
 
+  if (youtube_num < 8) {
 
-  // lastly, add the scrolling buttons for caurosels
-  console.log(document.getElementById('recommend-twitch'));
+  }
+  if (twitch_num < 8) {
+
+  }
+
 
 }
 

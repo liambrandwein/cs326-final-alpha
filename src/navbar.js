@@ -8,7 +8,7 @@
 //     alert("You are not signed on")
 //   location.href = './signin';
 // }
-document.getElementById("logout").onclick = async function() {
+document.getElementById("logout").onclick = async function () {
     alert("You have been logged out");
     const deleteAllCookies = () => {
         const cookies = document.cookie.split(";");
@@ -21,6 +21,14 @@ document.getElementById("logout").onclick = async function() {
     deleteAllCookies();
     const response = await fetch('/logout');
 }
+
+
+document.getElementById('search-form').addEventListener('submit', function (e) {
+    document.getElementById("search").click();
+    e.preventDefault();
+}, false);
+
+
 
 document.getElementById("search").onclick = function () {
     const need_reload = location.href.includes("results");
