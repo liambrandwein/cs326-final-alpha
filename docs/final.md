@@ -3,7 +3,9 @@
 
 ![](./images/watchAll.png) 
 
-Link: https://cs-326-alpha.herokuapp.com
+Link: https://cs-326-alpha.herokuapp.com  
+Video: https://www.youtube.com/watch?v=y45mxKd5OuY
+
 ## Overview
 WatchAll's purpose is to consolidate two of the biggest video and streaming content providers, YouTube and Twitch, in one place, allowing a user to keep track of their favorite content creators at once. WatchAll allows a user to create an account, search for content, subscribe to creators on Twitch and YouTube (through our site, e.g. the subscriptions are stored on our database), watch the creators, view their watch history, and get recommended new content on the home page.  
   
@@ -28,12 +30,55 @@ Long Le, GitHub: vlongle
 
 
 
-## APIs
+## API / URL Routes / Mappings
+
+Static web pages were all served with GET requests using res.sendFile leading to the directory of the HTML files. 
+
+**/** -- index.html -- The home page.  
+**/history** -- history.html -- The user's watch history page.  
+**/subscription** -- manager.html -- The user's subscribed creators.  
+**/signin** -- signin.html -- The sign in page.  
+**/signup** -- signup.html -- The sign up page.  
+**/results** -- searchResult.html -- The search results from the search bar at the top.  
+
+Standard CRUD operations were employed for the rest of the site.  
+
+**GET**  
+
+**/getuserdata/:id/:password** -- Parameters: **id (string)** - User's ID, **password (string)** - Password -- Verifies account information based on parameters.
+
+**/getusersubdata/:id** -- Parameters: **id (string)** - User's ID -- Gets a user's subscribed creators' names based on their username. Only available to a currently-logged-in user, and that user can only access their data.
+
+**/getuserwatchhist/:id** -- Parameters: **id (string)** - User's ID -- Get's a user's watch history based on their username. Only available to a currently-logged-in user, and that user can only access their data.
+
+**/getcreatordata/:id** -- Parameters: **id (string)** - Creator's ID -- Get's a creator's data based on their ID. 
+
+**/auth** -- Checks if the session is authenticated.
+
+**/logout** -- Clears authentication effectively logging out the current user.
+
+**POST**  
+
+**/createaccount** -- Body: { id, pass } **id (string)** - User's ID, **pass (string)** - Password -- Adds a username and a salted + hashed password to the database. This effectively creates an account.
+
+**/addusersub** -- Body: { id, creator_id } **id (string)** - User's ID, **creator_id (string)** - Creator's ID -- Adds a creator to a user's subscribed creators. Only available to a currently-logged-in user, and that user can only access their data.
+
+**/addcreator** -- Body: { creator_id, [ {platform, url} ] } **id (string)** - Creator's ID, **platform (string)** - The platform (e.g. YouTube), **url (string)** - URL of the platform, **thumbnail (string)** - Thumbnail URL -- Adds a creator to the creator database. The database stores creators' platforms in arrays of objects (1 array of objects per creator). This POST command also handles if the creator already exists and adds the specified platform to the creator's platform object array.
+
+**PATCH**
+
+**/updatewatchhist** -- Body: { id, creator_id, last_watch_time } **id (string)** - User's ID, **creator_id (string)** - Creator's ID, **last_watch_time (string)** - Last watch time -- Updates the specified user's watch history to include the specified creator and time that they were last watched. Only available to a currently-logged-in user, and that user can only access their data.
+
+**DELETE**  
+
+**/removeusersub** -- Body: { id, creator_id } **id (string)** - User's ID, **creator_id (string)** - Creator's ID -- Deletes (unsubscribes) the specificed creator from the specifiec user's "subscribed" list. Only available to a currently-logged-in user, and that user can only access their data.
+
+**/clearwatchhist** -- Body: { id } **id (string)** - User's ID -- Clears or deletes the watch history of the specified user. Only available to a currently-logged-in user, and that user can only access their data.
+
+
 
 ## Database
 The data is stored using MongoDB, specifically MongoDB Atlas. The Database is called "watchalldata". Within are 4 collections: userdata, usersubdata, userwatchhistdata, and creatordata. Userdata stores emails and passwords (salted + hashed). Usersubdata stores a list of creator names/IDs along with the corresponding users' ID's (emails). Userwatchhistdata is similar to usersubdata except it also stores timestamps for the watch history page. Creatordata is a collection of data for each content creator -- this is used by pages such as watch history and subscriptions to display data about content creators. Content creator lists are fetched from usersubdata and userwatchhistdata, and then the necessary data is fetched from creatordata.
-
-## URL Routes/Mappings
 
 ## Authentication/Authorization
 Nobody can view the site unless they have an account. Creating an account requires an unused email and a password of at least 8 characters. Once the account is created, the password is salted, hashed, and stored (along with the email) in 'userdata' as described above. Logging in creates a session that is stored in a cookie -- express-session is used for this. The session times out eventually, and revisting the site often requires a relogin by design. Only a logged-in user can access the API, and only through the site, and only for their data (watch history, subscriptions).
