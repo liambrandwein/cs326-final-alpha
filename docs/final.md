@@ -36,6 +36,17 @@ The data is stored using MongoDB, specifically MongoDB Atlas. The Database is ca
 Nobody can view the site unless they have an account. Creating an account requires an unused email and a password of at least 8 characters. Once the account is created, the password is salted, hashed, and stored (along with the email) in 'userdata' as described above. Logging in creates a session that is stored in a cookie -- express-session is used for this. The session times out eventually, and revisting the site often requires a relogin by design. Only a logged-in user can access the API, and only through the site, and only for their data (watch history, subscriptions).
 
 ## Divison of Labor
+The percentage of contribution for each team member is as follows:
+
+| Parts | Long |  Liam |
+| ----------- 						| ----------- | ----------- |
+External API calls (to Twitch, Youtube)	| 80% | 20% |
+HTML/CSS pages  | 70% | 30% |
+Routing | 40% | 60% |
+Mongodb databases | 30% | 70% |
+Secure authentication and session | 20% | 80% |
+Miscellaneous algorithms (e.g. for recommendation) | 60% | 40% |
+Total | 50% | 50% |
 
 ## Conclusion
 
