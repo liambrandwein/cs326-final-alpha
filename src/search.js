@@ -1,5 +1,5 @@
 import { watch } from './utils.js';
-console.log("search my boy!")
+
 
 const TWITCH_RESULT_LIMIT = 10;
 const YOUTUBE_RESULT_LIMIT = 10;
@@ -28,7 +28,7 @@ function shuffle(array) {
 
 async function subscribe(i, data) {
   // TODO: see function unsubscribe in sub.js for reference
-  console.log('subscribing to channel_name:', data[i].channel_name);
+
 
   const response = await fetch('/addusersub', {
     method: 'POST',
@@ -49,7 +49,7 @@ function pageLoad() {
 }
 
 async function retrieveResults(query) {
-  console.log("searching for: " + query);
+
 
   // get twitch results
   const url_twitch = '/getTwitchSearchResults/' + query;
@@ -57,14 +57,14 @@ async function retrieveResults(query) {
   let data_twitch = await response_twitch.json();
   // only take the first TWITCH_RESULT_LIMIT results
   data_twitch = data_twitch.slice(0, TWITCH_RESULT_LIMIT);
-  console.log('twitch:', data_twitch);
+
 
   // get youtube results
   const url_youtube = '/getYoutubeSearchResults/' + query;
   const response_youtube = await fetch(url_youtube);
   let data_youtube = await response_youtube.json();
   data_youtube = data_youtube.slice(0, YOUTUBE_RESULT_LIMIT);
-  console.log('youtube:', data_youtube);
+
 
   // append all results to a single array
   let results = data_twitch.concat(data_youtube);

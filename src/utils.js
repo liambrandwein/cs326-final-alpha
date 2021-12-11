@@ -3,7 +3,7 @@ function getCurrentDateTime() {
     return date.toString();
 }
 export async function watch(creator_id) {
-    console.log("watching " + creator_id);
+
     const url = '/updatewatchhist'
     const dateTime = getCurrentDateTime();
     const response = await fetch(url, {
@@ -16,5 +16,5 @@ export async function watch(creator_id) {
             last_watch_time: dateTime
         })
     });
-    console.log(response);
+
 }

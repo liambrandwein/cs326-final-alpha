@@ -244,8 +244,8 @@ function getTwitchSearchResults(req, res) {
 function getYoutubeSearchResults(req, res) {
     youtube.youtubeSearch(req.params.query, 50).then(
         (data) => {
-            console.log("Youtube data: ");
-            console.log(data);
+
+
             data = data['items'];
             let parsed_data = [];
             for (let i = 0; i < data.length; i++) {

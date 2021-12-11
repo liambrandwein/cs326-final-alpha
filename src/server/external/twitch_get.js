@@ -30,7 +30,7 @@ async function isStreamLive(userName) {
         return false;
     }
     const data = await apiClient.helix.streams.getStreamByUserId(user.id) !== null;
-    console.log(data);
+
 }
 
 // isStreamLive('chess');

@@ -215,8 +215,8 @@ async function getUserSubData(req, res) {
 async function getUserWatchHist(req, res) {
     //const user_watch_hist_data = getDataBase('user_watch_hist_data');
     const user_watch_hist_data = await mongoserver.run(mongoserver.getHist, req, res);
-    console.log("userWatchHist");
-    console.log(user_watch_hist_data);
+
+
     const params = req.params;
     if (user_watch_hist_data) {
         res.send({
@@ -250,7 +250,7 @@ async function getUserWatchHist(req, res) {
 // }
 
 function getTwitchSearchResults(req, res) {
-    console.log("getting twitch search")
+
     twitch.twitchSearch(req.params.query).then(
         (data) => {
             let parsed_data = [];

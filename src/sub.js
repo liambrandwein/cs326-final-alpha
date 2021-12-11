@@ -1,9 +1,9 @@
 
 import { watch } from './utils.js';
 async function unsubscribe(creator_id) {
-  console.log("remove creator_id");
+
   const url = '/removeusersub';
-  console.log("removing ")
+
   const response = await fetch(url, {
     method: 'DELETE',
     headers: {
@@ -11,7 +11,7 @@ async function unsubscribe(creator_id) {
     },
     body: JSON.stringify({ creator_id: creator_id, user_id: 'placeholder' })
   });
-  console.log(response);
+
   window.location.reload();
 }
 
@@ -27,19 +27,19 @@ async function loadSubs() {
   const response = await fetch(url);
   const data = await response.json();
   const subs = data.subs;
-  console.log(subs);
+
 
   // display the subs
   for (let i = 0; i < subs.length; i++) {
     const creator_id = subs[i];
-    console.log("sub creator_id" + creator_id);
+
     // query creator's data
     const creator_url = '/getcreatordata/' + creator_id;
-    console.log(creator_url);
+
     const creator_response = await fetch(creator_url);
     const creator_data = await creator_response.json();
-    console.log(creator_data);
-    console.log(creator_data.data);
+
+
     const pic = creator_data.thumbnail;
     //const content_tag = creator_data.content_tag;
     const platform = creator_data['data'][0].platform;
@@ -63,9 +63,9 @@ async function loadSubs() {
         </div>
         `;
     document.getElementById('manager-cards').insertAdjacentHTML('beforeend', div);
-    console.log("watch " + creator_id);
-    console.log(document.getElementById(`sub-watch-${creator_id}`));
-    console.log(div);
+
+
+
     document.getElementById(`sub-watch-${creator_id}`).addEventListener('click', () => watch(creator_id));
     document.getElementById(`unsub-${creator_id}`).addEventListener('click', () => unsubscribe(creator_id));
   }

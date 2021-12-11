@@ -11,7 +11,7 @@ async function loadDefaultRecommendedContent(platform) {
   const defaultCategories = ['chess', 'cooking'];
   const RESULTS_LIMIT_PER_CATEGORY = 8;
   let items = [];
-  console.log("loadDefaultRecommendedContent" + platform);
+
   for (const category of defaultCategories) {
     let url = '';
     if (platform == 'youtube') {
@@ -26,8 +26,8 @@ async function loadDefaultRecommendedContent(platform) {
     data = data.slice(0, RESULTS_LIMIT_PER_CATEGORY);
     items = items.concat(data);
   }
-  console.log("loadDefaultRecommendedContent");
-  console.log(items);
+
+
   return items;
 }
 
@@ -73,7 +73,7 @@ async function loadRecommendedContent() {
   const response = await fetch(url);
   const data = await response.json();
   const subs = data.subs;
-  console.log(subs);
+
 
 
   let youtube_num = 0;
@@ -112,8 +112,8 @@ async function loadRecommendedContent() {
     items = items.concat(defaultTwitch);
   }
 
-  console.log("items");
-  console.log(items);
+
+
   // remove duplicated channel_names from items
   items = items.filter((item, index, self) =>
     index === self.findIndex((t) => (

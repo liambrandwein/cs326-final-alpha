@@ -11,19 +11,19 @@ async function loadHistory() {
     const response = await fetch(url);
     const data = await response.json();
     const history = data.history;
-    console.log("loadHist data");
-    console.log(data);
+
+
 
     // display the history
     for (let i = 0; i < history.length; i++) {
         const creator_id = history[i];
-        console.log("creator_id " + creator_id);
+
         // query creator's data
         const creator_url = '/getcreatordata/' + creator_id;
-        console.log(creator_url);
+
         const creator_response = await fetch(creator_url);
         const creator_data = await creator_response.json();
-        console.log(creator_data);
+
         const pic = creator_data.thumbnail;
         const last_watch = data.watch_times[i];
         const platform = creator_data['data'][0].platform;
@@ -62,7 +62,7 @@ async function clearHistory() {
         },
         body: JSON.stringify({ id: user_id })
     });
-    console.log("clear history ");
+
     // reload the page
     window.location.reload();
 }
