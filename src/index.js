@@ -103,14 +103,14 @@ async function loadRecommendedContent() {
     }
   }
 
-  // if (youtube_num < 8) {
-  //   let defaultYoutube = await loadDefaultRecommendedContent('youtube');
-  //   items = items.concat(defaultYoutube);
-  // }
-  // if (twitch_num < 8) {
-  //   let defaultTwitch = await loadDefaultRecommendedContent('twitch');
-  //   items = items.concat(defaultTwitch);
-  // }
+  if (youtube_num < 8) {
+    let defaultYoutube = await loadDefaultRecommendedContent('youtube');
+    items = items.concat(defaultYoutube);
+  }
+  if (twitch_num < 8) {
+    let defaultTwitch = await loadDefaultRecommendedContent('twitch');
+    items = items.concat(defaultTwitch);
+  }
 
   console.log("items");
   console.log(items);
