@@ -1,8 +1,8 @@
 # Team Alpha
 # WatchAll - Fall 2021
-
+Link: https://cs-326-alpha.herokuapp.com
 ## Overview
-WatchAll's purpose is to consolidate two of the biggest video and streaming content providers, YouTube and Twitch, in one place, allowing a user to keep track of their favorite content creators in one place. WatchAll allows a user to create an account, search for content, subscribe to creators on Twitch and YouTube (through our site, e.g. the subscriptions are stored on our database), watch the creators, view their watch history, and get recommended new content on the home page.  
+WatchAll's purpose is to consolidate two of the biggest video and streaming content providers, YouTube and Twitch, in one place, allowing a user to keep track of their favorite content creators at once. WatchAll allows a user to create an account, search for content, subscribe to creators on Twitch and YouTube (through our site, e.g. the subscriptions are stored on our database), watch the creators, view their watch history, and get recommended new content on the home page.  
   
 ## Team Members
 Liam Brandwein, GitHub: liambrandwein  
